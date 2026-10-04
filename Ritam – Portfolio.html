@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ritam – Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit;margin:0}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{height:100%;background:#232323;font-family:'Outfit',system-ui,sans-serif;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#fit{position:relative}
+#stage{position:absolute;left:0;top:0;width:676px;height:459px;transform-origin:0 0}
+.abs{position:absolute}
+.card{left:24px;top:48px;width:638px;height:360px;border-radius:22px;background:#d9d5d4}
+.panel{left:45px;top:59px;width:596px;height:325px;border-radius:16px;background:#efebea}
+.nav{font-size:6.5px;font-weight:700;letter-spacing:.3px;transform:rotate(-90deg);transform-origin:left top;white-space:nowrap;color:#111;text-decoration:none}
+.nav:hover{color:#6b6cc4}
+/* about */
+.about{left:79px;top:80px;width:206px;height:289px;background:#8283d4;border-radius:0 14px 14px 14px;overflow:hidden}
+.tab{left:79px;top:80px;width:76px;height:19px;background:#efebea;border-radius:12px 12px 0 0;z-index:2}
+.tab-label{left:82px;top:83px;z-index:3;font-weight:700;font-size:9.5px;display:flex;align-items:center;gap:4px}
+.tab-label i{width:8px;height:8px;border-radius:50%;background:#111;display:block}
+.tab-curve{left:153px;top:80px;width:12px;height:12px;z-index:2;background:radial-gradient(circle at 100% 100%,#8283d4 11.5px,transparent 12px)}
+.tab-curve{background:radial-gradient(circle at 100% 100%,transparent 11px,#efebea 11.5px)}
+.ring{left:145px;top:92px;width:124px;height:124px;border-radius:50%;background:#fff;z-index:2;display:flex;align-items:center;justify-content:center}
+.ring>div{width:112px;height:112px;border-radius:50%;background:#d9a5ec;overflow:hidden}
+.im{left:86px;top:236px;color:#fff;z-index:2;line-height:1}
+.im span{display:block;font-weight:300;font-size:30px;color:#f1f1fb}
+.im b{display:block;font-weight:700;font-size:35px;margin-top:-1px;letter-spacing:.3px}
+.bio{left:86px;top:307px;width:190px;font-size:7.4px;line-height:1.45;color:#f0f0fb;z-index:2}
+/* title */
+.title{left:303px;top:70px;font-size:56px;font-weight:400;letter-spacing:1.5px;color:#22252e;line-height:1.1}
+.bracket{left:597px;top:84px;width:17px;height:17px;border-top:2.5px solid #22252e;border-right:2.5px solid #22252e}
+/* preview */
+.shot{left:306px;top:145px;width:191px;height:133px;border-radius:8px;background:#f6f3e8;box-shadow:0 2px 6px #0002;overflow:hidden;font-family:system-ui,sans-serif}
+.shot .bar{height:12px;background:#fff;border-bottom:1px solid #e5e2d6;display:flex;align-items:center;justify-content:space-between;padding:0 6px;font-size:4.5px;font-weight:700}
+.shot .pill{display:inline-block;background:#fbe45b;border-radius:6px;padding:1px 5px;font-size:4px;margin:7px auto 0}
+.shot h4{font-family:'Outfit',sans-serif;font-size:15px;line-height:1.08;font-weight:800;text-align:center;margin-top:6px;color:#14141b}
+.shot h4 mark{background:#fbe45b;padding:0 5px;display:inline-block;margin-top:2px;border:1px solid #14141b}
+.shot p{font-size:4.3px;text-align:center;color:#555;margin:6px 14px 0;line-height:1.5}
+.shot .btns{display:flex;gap:3px;justify-content:center;margin-top:5px}
+.shot .btns i{font-style:normal;font-size:4.2px;padding:2px 5px;border-radius:3px;background:#14301f;color:#fff}
+.shot .btns i+i{background:#fff;color:#14301f;border:1px solid #cfcab5}
+.shot .chips{display:flex;gap:2px;justify-content:center;margin-top:6px;font-size:3.6px;color:#777}
+.shot .chips i{font-style:normal;border:1px solid #ddd;background:#fff;padding:1px 3px;border-radius:2px}
+.shot .scan{position:absolute;left:0;right:0;height:14px;background:linear-gradient(#fbe45b00,#fbe45b66,#fbe45b00);animation:scan 4s ease-in-out infinite}
+@keyframes scan{0%,100%{top:12px}50%{top:110px}}
+/* projects accordion */
+.projects{left:516px;top:144px;width:122px;height:134px;display:flex;flex-direction:column;gap:0;border-radius:6px;overflow:hidden}
+.pj{flex:0 0 17px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;font-weight:600;font-size:9.5px;padding-top:2.5px;overflow:hidden;cursor:pointer;color:#111;transition:flex-basis .7s cubic-bezier(.6,.05,.2,1),filter .3s;border:0;font-family:inherit;width:100%;background:none}
+.pj .n{line-height:12px;transition:font-size .5s,text-decoration-color .5s;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:1.5px}
+.pj .d{font-size:7.6px;font-weight:400;line-height:1.3;padding:3px 6px 0;opacity:0;transform:translateY(-4px);transition:opacity .45s .15s,transform .45s .15s}
+.pj .t{font-size:6.4px;font-weight:600;margin-top:4px;opacity:0;transition:opacity .45s .25s}
+.pj.on{flex-basis:56px}
+.pj.on .n{text-decoration-color:#111}
+.pj.on .d,.pj.on .t{opacity:1;transform:none}
+.pj:hover{filter:brightness(1.06)}
+.pj:focus-visible{outline:2px solid #111;outline-offset:-2px}
+.c1{background:#7fcdb0}.c2{background:#f9e46a}.c3{background:#f08cbf}
+.progress{position:absolute;left:0;bottom:0;height:2px;background:#111;width:0}
+/* bottom row */
+.contact{left:306px;top:294px;width:107px;height:76px;border-radius:8px;background:#4b4b4b;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;font-weight:700;font-size:9px;transition:transform .25s}
+.contact:hover{transform:translateY(-3px) rotate(-1deg)}
+.contact svg{width:46px;height:46px}
+.resume{left:412px;top:296px;width:84px;height:75px;border-radius:8px;background:#fbe45b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-decoration:none;color:#111;font-weight:800;font-size:11px;transition:transform .25s}
+.resume:hover{transform:translateY(-3px) rotate(1deg)}
+.cv{width:34px;height:42px;background:#fff;border:1.5px solid #111;border-radius:2px;position:relative;font-size:7px;font-weight:700;padding:3px 4px}
+.cv::after{content:"";position:absolute;left:4px;right:4px;bottom:5px;height:12px;background:repeating-linear-gradient(#111 0 1px,transparent 1px 4px)}
+.ptab{left:513px;top:294px;width:24px;height:76px;background:#ef5a4a;border-radius:6px 0 0 6px;display:flex;align-items:center;justify-content:center}
+.ptab span{transform:rotate(-90deg);color:#fff;font-weight:800;font-size:10px;letter-spacing:.2px}
+.pcount{left:535px;top:294px;width:84px;height:76px;background:#a2c97e;border-radius:6px 10px 10px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1.5px solid #333;line-height:1}
+.pcount b{font-size:44px;font-weight:700;color:#111}
+.pcount span{font-size:11px;font-weight:700;color:#111;margin-top:1px}
+@media (prefers-reduced-motion:reduce){.pj,.pj *,.shot .scan{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="fit"><div id="stage">
+
+<div class="abs card"></div>
+<div class="abs panel"></div>
+
+<a class="abs nav" href="#resume" style="left:62px;top:150px">RESUME</a>
+<a class="abs nav" href="#skills" style="left:62px;top:206px">SKILLS</a>
+<a class="abs nav" href="#projects" style="left:62px;top:276px">PROJECTS</a>
+<a class="abs nav" href="#about" style="left:62px;top:352px">ABOUT</a>
+
+<div class="abs about"></div>
+<div class="abs tab"></div>
+<div class="abs tab-curve"></div>
+<div class="abs tab-label"><i></i>About Me</div>
+<div class="abs ring"><div>
+  <svg viewBox="0 0 112 112" width="112" height="112">
+    <path d="M18 112c2-22 18-30 38-30s36 8 38 30z" fill="#fff"/>
+    <rect x="47" y="62" width="20" height="24" rx="8" fill="#e9b99a"/>
+    <ellipse cx="57" cy="46" rx="21" ry="26" fill="#f1c7aa"/>
+    <path d="M33 44c-4-22 8-34 26-33 16 1 24 12 20 32-3-9-8-13-12-14-8 3-22 2-26 6-3 2-5 5-8 9z" fill="#1c1a1f"/>
+    <path d="M36 40c-2 8-1 14 1 20" stroke="#1c1a1f" stroke-width="4" fill="none"/>
+    <circle cx="66" cy="46" r="1.6" fill="#2a2a2a"/><path d="M60 62q5 2 9 0" stroke="#b97" fill="none" stroke-width="1.2"/>
+  </svg>
+</div></div>
+<div class="abs im"><span>Im,</span><b>Ritam</b></div>
+<p class="abs bio">Full-Stack Engineer(AI/ML Web) | Techno India University | B.Tech ( 8.2 CGPA) | 3rd Year Re-Architectured PicsY Image Engines to Reduce API Dependency by 80% | High-Performance UX via Fabric.js, Redis, &amp; React</p>
+
+<h1 class="abs title">Portfolio</h1>
+<div class="abs bracket"></div>
+
+<div class="abs shot" aria-label="Briefly preview">
+  <div class="bar"><span>Briefly</span><span style="font-weight:400">Log in · Start free</span></div>
+  <div style="text-align:center"><span class="pill">Google Gemini Hackathon 2026 · Top Submission Track</span></div>
+  <h4>Split expenses.<br>Settle debts.<br><mark>Say Briefly.</mark></h4>
+  <p>Autonomous background operator that extracts bill line items with Gemini Vision, computes minimal pairwise transfers, and orchestrates unattended debt resolutions via zero-custody UPI deep links.</p>
+  <div class="btns"><i>Agent EDU Manager</i><i>Explore Debt Graph</i></div>
+  <div class="chips"><i>Next.js</i><i>Gemini</i><i>Vision</i><i>UPI</i></div>
+  <div class="scan"></div>
+</div>
+
+<div class="abs projects" id="projects">
+  <button class="pj c1"><span class="n">Roomie</span><span class="d">Shared-living manager for rent, chores &amp; groceries.</span><span class="t">React · Firebase</span></button>
+  <button class="pj c2"><span class="n">Manga Translator</span><span class="d">Detects speech bubbles, OCRs and retypesets panels.</span><span class="t">Python · OCR · Fabric.js</span></button>
+  <button class="pj c3 on"><span class="n">Tax Explainer</span><span class="d">Transforms complex financial data into an interactive, visual AI-explained dashboard.</span><span class="t">Python , OCR , Next.js</span></button>
+  <button class="pj c2"><span class="n">IRIS ai</span><span class="d">Vision assistant that turns screenshots into answers.</span><span class="t">Gemini · React</span></button>
+  <button class="pj c1"><span class="n">Studio OS</span><span class="d">Browser design studio with layers, canvas &amp; exports.</span><span class="t">Fabric.js · Redis</span></button>
+  <div class="progress" id="bar"></div>
+</div>
+
+<a class="abs contact" href="https://t.me/" target="_blank" rel="noopener">
+  <svg viewBox="0 0 64 64"><path d="M58 8 6 28c-3 1-3 4 0 5l13 4 5 16c1 3 4 3 6 1l7-7 13 10c2 1 4 0 5-3L62 11c1-3-2-5-4-3z" fill="#fff"/><path d="M24 37 52 18 29 41 28 52z" fill="#bfd4e6"/></svg>
+  CONTACT ME
+</a>
+<a class="abs resume" id="resume" href="#resume">
+  <div class="cv">CV</div>RESUME
+</a>
+<div class="abs ptab"><span>PRODUCTS</span></div>
+<div class="abs pcount"><b id="count">5</b><span>PROJECTS</span></div>
+
+</div></div>
+
+<script>
+// scale the fixed-ratio stage to fit any screen
+const stage=document.getElementById('stage'),fit=document.getElementById('fit');
+function resize(){
+  const s=Math.min(innerWidth/676,innerHeight/459);
+  stage.style.transform='scale('+s+')';
+  fit.style.width=676*s+'px';fit.style.height=459*s+'px';
+}
+addEventListener('resize',resize);resize();
+
+// animated projects accordion: auto-cycles, pauses on hover, click to jump
+const items=[...document.querySelectorAll('.pj')],bar=document.getElementById('bar'),box=document.getElementById('projects');
+const DUR=2800;let cur=2,paused=false,start=performance.now(),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function show(i){cur=i;items.forEach((el,k)=>el.classList.toggle('on',k===i));start=performance.now()}
+items.forEach((el,i)=>{el.addEventListener('click',()=>show(i));el.addEventListener('mouseenter',()=>{paused=true;show(i)});el.addEventListener('focus',()=>show(i))});
+box.addEventListener('mouseleave',()=>{paused=false;start=performance.now()});
+function tick(now){
+  if(!paused&&!reduce){
+    const p=(now-start)/DUR;
+    if(p>=1)show((cur+1)%items.length);
+    items[cur].appendChild(bar);bar.style.width=Math.min(p,1)*100+'%';
+  }else bar.style.width='0';
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+// count-up for "5 projects"
+(function(){const c=document.getElementById('count');let n=0;const t=setInterval(()=>{n++;c.textContent=n;if(n>=5)clearInterval(t)},160);c.textContent=0;})();
+</script>
+</body>
+</html>

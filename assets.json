@@ -1,0 +1,116 @@
+{
+  "profile": {
+    "greeting": "Im,",
+    "name": "Ritam",
+    "badgeTitle": "About Me",
+    "avatar": "assets/avatar.png",
+    "bio": "Full-Stack Engineer(Ai/ML Web) |\nTechno India University | B.Tech ( 8.2 CGPA) | 3rd Year\nRe-Architectured PicxY Image Engines to Reduce API Dependency by 80% | High-Performance UX via Fabric.js, Redis, & React",
+    "email": "ritam.contact@gmail.com"
+  },
+  "navigation": [
+    { "id": "about", "label": "ABOUT" },
+    { "id": "projects", "label": "PROJECTS" },
+    { "id": "skills", "label": "SKILLS" },
+    { "id": "resume", "label": "RESUME" }
+  ],
+  "projects": [
+    {
+      "id": "tax-explainer",
+      "title": "Tax Explainer",
+      "category": "AI / Fintech",
+      "hook": "Transforms complex financial data into an interactive, visual AI-explained dashboard.",
+      "problemSolved": "Eliminates tax jargon and calculation confusion for freelancers & small businesses via OCR analysis and automated visual deductions.",
+      "tags": ["Python", "OCR", "Next.js"],
+      "liveUrl": "https://ax-explainer.vercel.app",
+      "githubUrl": "https://github.com/ritam-dev/tax-explainer",
+      "color": "#F599C6",
+      "textColor": "#000000",
+      "previewImage": "assets/hero-showcase.png"
+    },
+    {
+      "id": "manga-translator",
+      "title": "Manga Translator",
+      "category": "Computer Vision",
+      "hook": "Instant in-image OCR & neural machine translation for Japanese manga scanlations.",
+      "problemSolved": "Solves multi-day translation bottlenecks for international scanlation communities with instant speech bubble OCR and inpainting.",
+      "tags": ["PyTorch", "FastAPI", "Canvas"],
+      "liveUrl": "https://manga-translator.vercel.app",
+      "githubUrl": "https://github.com/ritam-dev/manga-translator",
+      "color": "#FFEAB8",
+      "textColor": "#1C2733",
+      "previewImage": "assets/hero-showcase.png"
+    },
+    {
+      "id": "roomie",
+      "title": "Roomie",
+      "category": "Full-Stack Web",
+      "hook": "Smart AI roommate matchmaking and shared expense split engine for university students.",
+      "problemSolved": "Solves off-campus roommate incompatibility and bill friction using vector habit matchmaking and automated split settlement.",
+      "tags": ["React", "Node.js", "MongoDB"],
+      "liveUrl": "https://roomie-ai.vercel.app",
+      "githubUrl": "https://github.com/ritam-dev/roomie",
+      "color": "#7DCCAD",
+      "textColor": "#1C2733",
+      "previewImage": "assets/hero-showcase.png"
+    },
+    {
+      "id": "iris-ai",
+      "title": "IRIS ai",
+      "category": "Edge AI Vision",
+      "hook": "Multi-agent autonomous computer vision pipeline with real-time video anomaly detection.",
+      "problemSolved": "Solves critical transit and rail safety latency with automated edge CCTV anomaly detection and autonomous operator alerts.",
+      "tags": ["TensorFlow", "WebRTC", "FastAPI"],
+      "liveUrl": "https://iris-ai-vision.vercel.app",
+      "githubUrl": "https://github.com/ritam-dev/iris-ai",
+      "color": "#FFEAB8",
+      "textColor": "#1C2733",
+      "previewImage": "assets/hero-showcase.png"
+    },
+    {
+      "id": "studio-os",
+      "title": "Studio OS",
+      "category": "Productivity OS",
+      "hook": "Minimalist workspace OS orchestrating client feedback, milestones, and asset exports in real time.",
+      "problemSolved": "Solves fragmented client feedback and delivery chaos for boutique creative engineering agencies.",
+      "tags": ["TypeScript", "Tailwind", "Electron"],
+      "liveUrl": "https://studio-os.vercel.app",
+      "githubUrl": "https://github.com/ritam-dev/studio-os",
+      "color": "#7DCCAD",
+      "textColor": "#1C2733",
+      "previewImage": "assets/hero-showcase.png"
+    }
+  ],
+  "bottomCards": {
+    "contact": {
+      "title": "CONTACT ME",
+      "email": "ritam.contact@gmail.com",
+      "color": "#545454",
+      "textColor": "#CDFFF1",
+      "art": "assets/contact-art.png",
+      "socials": [
+        { "name": "GitHub", "url": "https://github.com" },
+        { "name": "LinkedIn", "url": "https://linkedin.com" },
+        { "name": "Twitter / X", "url": "https://twitter.com" },
+        { "name": "Email", "url": "mailto:ritam.contact@gmail.com" }
+      ]
+    },
+    "resume": {
+      "title": "RESUME",
+      "color": "#FEE85B",
+      "textColor": "#1E1E1E",
+      "art": "assets/resume-art.png",
+      "skills": ["Python", "PyTorch", "Next.js", "React", "TypeScript", "FastAPI", "Fabric.js", "Redis", "Tailwind CSS"]
+    },
+    "products": {
+      "title": "PRODUCTS",
+      "color": "#FF3F33",
+      "textColor": "#CDFFF1"
+    },
+    "metrics": {
+      "count": "5",
+      "label": "PROJECTS",
+      "color": "#9FC87E",
+      "textColor": "#023325"
+    }
+  }
+}
