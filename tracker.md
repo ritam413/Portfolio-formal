@@ -36,8 +36,29 @@ Rebuild Ritam's portfolio into a clean, minimalist, high-craft one-page resume m
 ### Current State
 Production-ready, ultra-clean one-page resume deployed locally matching `thatsmeadarsh.com` styling.
 
-### Remaining Work
-- None.
+## 2026-10-04 — Git Repository Initialization and Push to GitHub
+
+### Objective
+Initialize Git repository, configure `.gitignore` for Next.js, commit all codebase artifacts, and push to GitHub remote repository (`https://github.com/ritam413/Portfolio-formal.git`).
+
+### Changes Made
+- Created `.gitignore` ignoring `.next/`, `node_modules/`, `.env*.local`, etc.
+- Created `README.md`.
+- Initialized git repository with `git init`.
+- Staged all files with `git add .` and created first commit.
+- Renamed branch to `main`, added remote origin `https://github.com/ritam413/Portfolio-formal.git`, and pushed with `git push -u origin main`.
+
+### Files Changed
+- `.gitignore` — [NEW]
+- `README.md` — [NEW]
+- `tracker.md` — [MODIFIED]
+
+### Verification
+- `git status` confirmed clean working tree and up-to-date with `origin/main`.
+
+### Current State
+Codebase is synced with remote GitHub repository on branch `main`.
 
 ### Next Agent Instructions
-1. Run `npm run dev` in terminal and open `http://localhost:3000`.
+1. Run `npm run dev` to start the local Next.js dev server.
+
