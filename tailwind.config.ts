@@ -9,49 +9,27 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        stage: {
-          dark: "#232323",
-          outer: "#D2CECE",
-          board: "#F1EBEB",
-          preview: "#F6F3E8",
-        },
-        brand: {
-          bio: "#7F84D0",
-          aura: "#E2AFEC",
-          mint: "#7DCCAD",
-          butter: "#FFEAB8",
-          pink: "#F599C6",
-          contact: "#545454",
-          resume: "#FEE85B",
-          products: "#FF3F33",
-          metrics: "#9FC87E",
-        },
-        ink: {
-          dark: "#1C2733",
-          muted: "#383838",
-          light: "#F0F0FB",
-          cyan: "#CDFFF1",
-          forest: "#023325",
-        },
+        parchment: "#f8f5f5",
+        "parchment-rose": "#f8f5f5",
+        "specimen-white": "#ffffff",
+        "ink-brown": "#443235",
+        walnut: "#654a4e",
+        charcoal: "#2e2c2c",
+        "hairline-ash": "#cfc6c7",
+        "dusty-rose": "#916a70",
       },
       fontFamily: {
-        outfit: ["var(--font-outfit)", "system-ui", "sans-serif"],
-        sansita: ["var(--font-sansita)", "Georgia", "serif"],
+        serif: ["var(--font-serif)", "Newsreader", "Georgia", "serif"],
+        display: ["var(--font-display)", "Newsreader", "Playfair Display", "Georgia", "serif"],
+        dia: ["var(--font-dia)", "Plus Jakarta Sans", "Inter", "sans-serif"],
+        sans: ["var(--font-dia)", "Inter", "sans-serif"],
+      },
+      boxShadow: {
+        "typewolf-lg": "0 6px 24px 0 rgba(145, 106, 112, 0.15)",
+        "typewolf-subtle": "rgb(245, 241, 242) 0px -3px 0px 0px inset",
       },
       borderRadius: {
-        outer: "33px",
-        board: "35px",
-        card: "14px",
-        btn: "4px",
-      },
-      animation: {
-        scan: "scan 4s ease-in-out infinite",
-      },
-      keyframes: {
-        scan: {
-          "0%, 100%": { top: "12px" },
-          "50%": { top: "110px" },
-        },
+        md: "4px",
       },
     },
   },

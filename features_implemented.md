@@ -2,9 +2,9 @@
 
 ## Current Functionality Status
 
-### 1. Minimalist One-Page Resume Architecture (`thatsmeadarsh.com` Style)
+### 1. Typewolf Parchment Rose & Ink Brown Editorial Architecture
 - **Status**: Implemented
-- **Details**: Single-page resume and portfolio application built in Next.js 15 App Router & Tailwind CSS, matching the clean editorial design, typography, and layout of `thatsmeadarsh.com`.
+- **Details**: Single-page resume and portfolio application typeset with Typewolf's editorial design system: Parchment Rose (`#f8f5f5`) warm paper canvas, Specimen White (`#ffffff`) card plates, Hairline Ash (`#cfc6c7`) borders, Ink Brown (`#443235`) primary copy, Walnut (`#654a4e`) secondary metadata, and Dusty Rose (`#916a70`) badges. Uses `Newsreader`/`Domaine` serif and `Plus Jakarta Sans`/`Dia` all-caps micro-labels.
 
 ### 2. Sticky Minimalist Header (`Header.tsx`)
 - **Status**: Implemented
@@ -18,25 +18,27 @@
 ### 3. Bio & Executive Summary Section (`ResumePage.tsx`)
 - **Status**: Implemented
 - **Details**:
-  - Bio intro, role title: `Full-Stack Engineer (AI/ML Web)`.
-  - High-resolution profile avatar.
+  - 70/30 Two-Column responsive layout (70% Name, Role, Bio narrative, Tagline, and Summary bullets; 30% Avatar photo with integrated music player, Social contact bar, and categorized Skills matrix).
+  - Refined top vertical spacing (`pt-3 sm:pt-5`, `gap-6 lg:gap-8`) eliminating dead whitespace between the sticky header and hero content.
+  - High-resolution profile avatar featuring an integrated **bottom 30% dark gradient** (`h-[30%] bg-gradient-to-t from-black/95 via-black/60 to-transparent`) preserving 100% clarity on the top 70% of the image while displaying the **spinning custom vinyl record disk and right-aligned track typography (`Starboy by The Weeknd`) positioned on the bottom-right corner** with outbound YouTube link.
   - Bulleted summary detailing 3rd Year B.Tech CSE at Techno India University (8.2 CGPA), PicsY Image Engine re-architecture (80% API dependency reduction), and AI/ML stack expertise.
   - Social icons row (Email, GitHub, LinkedIn, Twitter/X, Telegram).
-  - Dynamic "♪ Listening to Starboy by The Weeknd" pulse status badge.
 
-### 4. Categorized Technical Skills Matrix
+### 4. Compact Icon-Only Technical Skills Dock (Sidebar / Under Avatar)
 - **Status**: Implemented
 - **Details**:
-  - Languages (Python, TypeScript, JavaScript, C/C++, SQL).
-  - Frameworks & Web (Next.js, React 19, FastAPI, Node.js, Tailwind CSS, Electron).
-  - AI / ML & Computer Vision (PyTorch, TensorFlow, OpenCV, Gemini Vision, Tesseract OCR, Inpainting).
-  - Architecture & Datastores (Fabric.js, Redis, MongoDB, PostgreSQL, Docker, Git, WebRTC).
+  - Integrated directly under the avatar photo and contact links in the 30% right column.
+  - High-density visual icon dock showing only crisp brand SVGs (no text clutter), allowing all 24 skills to fit cleanly on one screen without requiring reviewer scrolling.
+  - Interactive hover tooltips: hovering any icon displays a floating dark badge with the full technology name (`title` and animated CSS floating tooltip pill with pointer arrow).
+  - Categorized into Languages, Frameworks & State, AI / ML & Vision, and Datastores & Infra.
 
-### 5. Featured Projects Showcase
+### 5. Aceternity UI Expandable Card Grid for Projects (`ExpandableCardGrid.tsx`)
 - **Status**: Implemented
 - **Details**:
-  - 5 core projects (`Tax Explainer`, `Manga Translator`, `Roomie`, `IRIS ai`, `Studio OS`).
-  - Distinct colored category badge icons, external link arrow hover transitions, problem descriptions, and tech stack tags.
+  - Implemented exact Aceternity UI Expandable Card Grid component (`ExpandableCardDemo`) powered by `motion/react` with fluid `layoutId` shared-element morphing animations between grid cards and modal views.
+  - 2-column responsive layout showcasing all 5 projects (`Tax Explainer`, `Manga Translator`, `Roomie`, `IRIS ai`, `Studio OS`).
+  - Interactive expanded modal: clicking any card morphs smoothly into the expanded modal with problem-solution narrative, architecture stack breakdown, and live "Visit" CTA button.
+  - Keyboard accessibility (Esc to close) and outside-click dismissal via `useOutsideClick` hook with body scroll lock.
 
 ### 6. Education & Academic Standing
 - **Status**: Implemented

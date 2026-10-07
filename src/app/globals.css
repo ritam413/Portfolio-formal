@@ -1,12 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=Plus+Jakarta+Sans:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-outfit: 'Outfit', system-ui, sans-serif;
-  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Newsreader', 'DomaineText', Georgia, serif;
+  --font-display: 'Newsreader', 'DomaineDisplayNarrow', 'Playfair Display', Georgia, serif;
+  --font-dia: 'Plus Jakarta Sans', 'Dia', 'Inter', -apple-system, sans-serif;
 }
 
 * {
@@ -17,18 +18,33 @@
 
 html, body {
   min-height: 100%;
-  background-color: #FAFAFA;
-  color: #111827;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  background-color: #f8f5f5;
+  color: #443235;
+  font-family: var(--font-serif);
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
+  selection-background-color: #916a70;
+  selection-color: #ffffff;
+}
+
+::selection {
+  background-color: #916a70;
+  color: #ffffff;
+}
+
+/* Micro-labels using Dia style */
+.font-dia-label {
+  font-family: var(--font-dia);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
 }
 
 /* Print Specific Optimizations */
 @media print {
   body {
-    background-color: #FFFFFF !important;
-    color: #000000 !important;
+    background-color: #ffffff !important;
+    color: #2e2c2c !important;
   }
 
   header, footer, .print\:hidden {

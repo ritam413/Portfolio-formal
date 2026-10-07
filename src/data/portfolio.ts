@@ -157,7 +157,7 @@ export const portfolioData: PortfolioData = {
   ],
   skills: {
     languages: ["Python", "TypeScript", "JavaScript (ES6+)", "C/C++", "SQL"],
-    frameworks: ["Next.js", "React 19", "FastAPI", "Node.js", "Tailwind CSS", "Electron"],
+    frameworks: ["Next.js", "React 19", "FastAPI", "Node.js", "Tailwind CSS", "Zustand"],
     aiMl: ["PyTorch", "TensorFlow", "OpenCV", "Gemini Vision", "Tesseract OCR", "Inpainting"],
     tools: ["Fabric.js", "Redis", "MongoDB", "PostgreSQL", "Docker", "Git", "WebRTC"],
   },

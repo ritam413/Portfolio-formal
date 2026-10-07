@@ -5,7 +5,11 @@ Clean, minimalist, high-craft one-page personal resume and portfolio site inspir
 
 ## Architecture & Technology Stack
 - **Framework**: Next.js 15 App Router (`src/app/`) with React 19 & TypeScript.
-- **Styling**: Tailwind CSS with clean neutral palette (`#FAFAFA` base, `#FFFFFF` cards with `#E5E7EB` borders, `#111827` ink typography).
+- **Styling & Design System**: Tailwind CSS configured with Typewolf's editorial tokens:
+  - Canvas: `#f8f5f5` (Parchment Rose — warm paper atmosphere).
+  - Cards & Plates: `#ffffff` (Specimen White) with `#cfc6c7` (Hairline Ash) borders.
+  - Typography: `#443235` (Ink Brown) headlines and body, `#654a4e` (Walnut) secondary text, `#916a70` (Dusty Rose) badges/accents.
+  - Font Pairing: `Newsreader` / `DomaineText` (transitional editorial serif) + `Plus Jakarta Sans` / `Dia` (all-caps micro-labels).
 - **Icons**: `lucide-react`.
 - **Print Optimization**: Embedded `@media print` rules for clean single-page CV printing without web navigation artifacts.
 
