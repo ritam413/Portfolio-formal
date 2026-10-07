@@ -383,25 +383,82 @@ Apply the complete Typewolf design token specification across the entire portfol
 ### Current State
 Entire portfolio is fully themed with Typewolf's Parchment Rose and Ink Brown editorial aesthetic, while the project cards maintain the authentic Aceternity UI component styling and green CTAs.
 
-## 2026-10-07 — Retain Pure Aceternity UI Styling on Expandable Project Cards
+## 2026-10-07 — Circular Icon-Only Quick Action on Card Images
 
 ### Objective
-Preserve the authentic, out-of-the-box Aceternity UI component styling (typography, modal layout, rounded corners, green CTA button, and dark/light support) for the project cards without imposing serif typography.
+Replace the text-based "Visit" pill with a minimal circular external-link icon button on top of every project card's image in the grid.
 
 ### Changes Made
 - Updated [ExpandableCardGrid.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/ExpandableCardGrid.tsx):
-  - Retained authentic Aceternity UI styling: `font-medium text-neutral-800 dark:text-neutral-200`, `text-neutral-600 dark:text-neutral-400`, `bg-green-500 text-white rounded-full` CTA buttons, clean rounded corners, and modal sheet.
-- Updated [tracker.md](file:///d:/Games/Hckthons/Portfolio/tracker.md).
+  - Changed the overlay from a text badge to a minimal, high-craft circular button (`w-7 h-7 rounded-full bg-black/60 hover:bg-green-600 hover:scale-110 backdrop-blur-md`).
+  - Contains only the crisp external link SVG icon with `aria-label` for accessibility.
+- Updated `features_implemented.md` and `tracker.md`.
 
 ### Files Changed
 - `src/components/ExpandableCardGrid.tsx` — [MODIFIED]
+- `features_implemented.md` — [MODIFIED]
 - `tracker.md` — [MODIFIED]
 
+### Verification
+- Verified clean circular icon rendering and 1-click external project launch.
+
+## 2026-10-07 — Centralized Asset and Project Configuration (`assets.ts` / `assets.js`)
+
+### Objective
+Create a centralized asset configuration file ([src/data/assets.ts](file:///d:/Games/Hckthons/Portfolio/src/data/assets.ts) & [assets.js](file:///d:/Games/Hckthons/Portfolio/assets.js)) allowing the user to quickly update project image thumbnails (Cloudinary links), URLs, summaries, and media assets in one place.
+
+### Changes Made
+- Created [src/data/assets.ts](file:///d:/Games/Hckthons/Portfolio/src/data/assets.ts) and root [assets.js](file:///d:/Games/Hckthons/Portfolio/assets.js) defining:
+  - `mediaAssets`: Profile avatar, hero showcase, contact art, resume art.
+  - `projectAssets`: Keyed by project (`taxExplainer`, `mangaTranslator`, `roomie`, `irisAi`, `studioOs`) with `imageUrl` placeholders ready for Cloudinary URLs, `liveUrl`, `summary`, `problemSolved`, and `stack`.
+  - `projectCardsList`: Array export for grid iterating.
+- Updated [src/components/ExpandableCardGrid.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/ExpandableCardGrid.tsx) to consume data directly from `@/data/assets`.
+- Updated [src/data/portfolio.ts](file:///d:/Games/Hckthons/Portfolio/src/data/portfolio.ts) to sync its project definitions and avatar from `@/data/assets`.
+- Verified TypeScript compilation (`tsc --noEmit`) with 0 errors.
+
+### Files Changed
+- `src/data/assets.ts` — [CREATED]
+- `assets.js` — [CREATED]
+- `src/components/ExpandableCardGrid.tsx` — [MODIFIED]
+- `src/data/portfolio.ts` — [MODIFIED]
+- `features_implemented.md` — [MODIFIED]
+- `tracker.md` — [MODIFIED]
+
+### Current State
+All portfolio project cards, images, and modal details are now driven from the centralized asset configuration. Simply replace the `imageUrl` fields in `src/data/assets.ts` (or `assets.js`) with your Cloudinary links to update the live UI immediately.
+
 ### Next Agent Instructions
-1. Run `npm run dev` to preview the authentic Aceternity UI expandable cards.
+1. Inspect [src/data/assets.ts](file:///d:/Games/Hckthons/Portfolio/src/data/assets.ts) when updating or adding project assets.
+2. Maintain type safety when adding additional project keys.
 
+## 2026-10-07 — GSAP Typewriter Availability Badge Integration
 
+### Objective
+Implement a GSAP-driven typewriter effect using `@gsap/react` and GSAP's `TextPlugin` to continuously cycle the hero availability badge through "internship", "collaborator", and "freelancing".
 
+### Changes Made
+- Installed `gsap` and `@gsap/react`.
+- Created [src/components/TypewriterBadge.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/TypewriterBadge.tsx):
+  - Used `useGSAP` hook with scoped container ref for SSR safety and memory cleanup.
+  - Registered `TextPlugin` and `useGSAP`.
+  - Built a looped timeline (`repeat: -1`) typing out each word character-by-character, pausing for readability, erasing smoothly, and typing the next word (`["internship", "collaborator", "freelancing"]`).
+  - Added an animated blinking cursor and pulsing live signal indicator dot.
+- Updated [src/components/ResumePage.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/ResumePage.tsx) to mount `<TypewriterBadge />`.
+- Updated `features_implemented.md` and `tracker.md`.
 
+### Files Changed
+- `package.json` — [MODIFIED] Added `gsap` & `@gsap/react`
+- `src/components/TypewriterBadge.tsx` — [CREATED] GSAP typewriter badge component
+- `src/components/ResumePage.tsx` — [MODIFIED] Rendered TypewriterBadge in hero
+- `features_implemented.md` — [MODIFIED]
+- `tracker.md` — [MODIFIED]
 
+### Verification
+- `npm run build` ran and completed with 0 errors (`Compiled successfully`, all static routes generated cleanly).
+
+### Current State
+Hero badge dynamically typewrites and cycles between "AVAILABLE FOR INTERNSHIP", "AVAILABLE FOR COLLABORATOR", and "AVAILABLE FOR FREELANCING" with smooth GSAP animations and blinking cursor.
+
+### Next Agent Instructions
+1. When customizing the words or typing speeds, pass `words` and `prefix` props directly into `<TypewriterBadge />` in `ResumePage.tsx`.
 

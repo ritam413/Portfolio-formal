@@ -18,6 +18,7 @@ import { portfolioData } from "@/data/portfolio";
 import { Header } from "./Header";
 import { TechIcon } from "./TechIcons";
 import { ExpandableCardDemo } from "./ExpandableCardGrid";
+import { TypewriterBadge } from "./TypewriterBadge";
 
 export const ResumePage: React.FC = () => {
   const { profile, skills, projects } = portfolioData;
@@ -33,10 +34,10 @@ export const ResumePage: React.FC = () => {
           <div className="w-full md:w-[68%] space-y-4 sm:space-y-5 flex-1">
             {/* Name & Role Header */}
             <div className="space-y-1.5">
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-[#916a70]/10 border border-[#916a70]/25 text-[#916a70] font-dia text-[11px] font-black uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#916a70] animate-ping" />
-                Available for Roles & Collabs
-              </div>
+              <TypewriterBadge
+                prefix="Available for"
+                words={["internship", "collaborator", "freelancing"]}
+              />
               <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#443235]">
                 {profile.name}
               </h1>

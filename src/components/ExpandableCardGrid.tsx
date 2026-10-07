@@ -3,22 +3,21 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
+import { projectCardsList, ProjectAsset } from "@/data/assets";
 
 export function ExpandableCardDemo() {
-  const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
-    null
-  );
+  const [active, setActive] = useState<ProjectAsset | null>(null);
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setActive(false);
+        setActive(null);
       }
     }
 
-    if (active && typeof active === "object") {
+    if (active) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -33,7 +32,7 @@ export function ExpandableCardDemo() {
   return (
     <>
       <AnimatePresence>
-        {active && typeof active === "object" && (
+        {active && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -43,7 +42,7 @@ export function ExpandableCardDemo() {
         )}
       </AnimatePresence>
       <AnimatePresence>
-        {active && typeof active === "object" ? (
+        {active ? (
           <div className="fixed inset-0 grid place-items-center z-[100] p-4">
             <motion.button
               key={`button-${active.title}-${id}`}
@@ -68,32 +67,32 @@ export function ExpandableCardDemo() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden shadow-2xl"
+              className="w-full max-w-[500px] max-h-[90vh] flex flex-col bg-[#cfc6c7] dark:bg-[#443235] sm:rounded-3xl overflow-hidden shadow-2xl border border-black/10 dark:border-white/10"
             >
-              <motion.div layoutId={`image-${active.title}-${id}`}>
+              <motion.div layoutId={`image-${active.title}-${id}`} className="shrink-0">
                 <img
-                  width={200}
-                  height={200}
-                  src={active.src}
+                  width={400}
+                  height={300}
+                  src={active.imageUrl}
                   alt={active.title}
-                  className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
+                  className="w-full h-64 sm:h-72 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top shrink-0"
                 />
               </motion.div>
 
-              <div>
-                <div className="flex justify-between items-start p-4">
-                  <div className="">
+              <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+                <div className="flex justify-between items-start p-4 shrink-0 border-b border-black/5 dark:border-white/10">
+                  <div>
                     <motion.h3
                       layoutId={`title-${active.title}-${id}`}
-                      className="font-medium text-neutral-700 dark:text-neutral-200 text-base"
+                      className="font-semibold text-[#261c1d] dark:text-[#f8f5f5] text-base"
                     >
                       {active.title}
                     </motion.h3>
                     <motion.p
-                      layoutId={`description-${active.description}-${id}`}
-                      className="text-neutral-600 dark:text-neutral-400 text-base"
+                      layoutId={`description-${active.category}-${id}`}
+                      className="text-neutral-700 dark:text-neutral-300 text-sm"
                     >
-                      {active.description}
+                      {active.category}
                     </motion.p>
                   </div>
 
@@ -102,24 +101,31 @@ export function ExpandableCardDemo() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    href={active.ctaLink}
+                    href={active.liveUrl}
                     target="_blank"
-                    className="px-4 py-3 text-sm rounded-full font-bold bg-green-500 text-white hover:bg-green-600 transition-colors"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2.5 text-sm rounded-full font-bold bg-green-500 text-white hover:bg-green-600 transition-colors shadow-sm shrink-0"
                   >
-                    {active.ctaText}
+                    {active.ctaText || "Visit"}
                   </motion.a>
                 </div>
-                <div className="pt-4 relative px-4">
+                <div className="p-4 flex-1 min-h-0 overflow-y-auto">
                   <motion.div
                     layout
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                    className="text-neutral-800 text-xs md:text-sm lg:text-base flex flex-col items-start gap-4 dark:text-neutral-200"
                   >
-                    {typeof active.content === "function"
-                      ? active.content()
-                      : active.content}
+                    <p>
+                      {active.summary}
+                      <br />
+                      <br />
+                      <strong>Problem Solved:</strong> {active.problemSolved}
+                      <br />
+                      <br />
+                      <strong>Architecture &amp; Stack:</strong> {active.stack}
+                    </p>
                   </motion.div>
                 </div>
               </div>
@@ -128,35 +134,58 @@ export function ExpandableCardDemo() {
         ) : null}
       </AnimatePresence>
       <ul className="max-w-2xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 items-start gap-4">
-        {cards.map((card) => (
+        {projectCardsList.map((card) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
             onClick={() => setActive(card)}
-            className="p-4 flex flex-col hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer transition-colors bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800"
+            className="group p-4 flex flex-col hover:bg-[#cfc6c7] dark:hover:bg-[#443235]/90 rounded-xl cursor-pointer transition-colors bg-white dark:bg-neutral-900/0  dark:hover:border-[#443235] "
           >
             <div className="flex gap-3 flex-col w-full">
-              <motion.div layoutId={`image-${card.title}-${id}`}>
+              <motion.div layoutId={`image-${card.title}-${id}`} className="relative overflow-hidden rounded-lg">
                 <img
-                  width={100}
-                  height={100}
-                  src={card.src}
+                  width={200}
+                  height={160}
+                  src={card.imageUrl}
                   alt={card.title}
                   className="h-36 sm:h-40 w-full rounded-lg object-cover object-top"
                 />
+                <a
+                  href={card.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="absolute top-2.5 right-2.5 flex items-center justify-center w-7 h-7 rounded-full bg-black/60 hover:bg-[#443235] text-white backdrop-blur-md transition-all shadow-md z-10 hover:scale-110"
+                  title={`Open ${card.title} in new tab`}
+                  aria-label={`Open ${card.title}`}
+                >
+                  <svg
+                    className="w-3.5 h-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                    />
+                  </svg>
+                </a>
               </motion.div>
               <div className="flex justify-center items-center flex-col text-center">
                 <motion.h3
                   layoutId={`title-${card.title}-${id}`}
-                  className="font-medium text-neutral-800 dark:text-neutral-200 text-sm md:text-base"
+                  className="font-medium text-[#443235]  group-hover:text-[#f8f5f5] text-sm md:text-base transition-colors duration-200"
                 >
                   {card.title}
                 </motion.h3>
                 <motion.p
-                  layoutId={`description-${card.description}-${id}`}
+                  layoutId={`description-${card.category}-${id}`}
                   className="text-neutral-600 dark:text-neutral-400 text-xs md:text-sm"
                 >
-                  {card.description}
+                  {card.category}
                 </motion.p>
               </div>
             </div>
@@ -199,125 +228,3 @@ export const CloseIcon = () => {
     </motion.svg>
   );
 };
-
-const cards = [
-  {
-    description: "AI / Fintech",
-    title: "Tax Explainer",
-    src: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop",
-    ctaText: "Visit",
-    ctaLink: "https://tax-explainer.vercel.app",
-    content: () => {
-      return (
-        <p>
-          Transforms complex financial documents into an interactive, visual
-          AI-explained dashboard with automated deduction discovery.
-          <br />
-          <br />
-          <strong>Problem Solved:</strong> Eliminates tax jargon and calculation
-          confusion for freelancers &amp; small businesses via OCR document
-          analysis, Gemini Vision reasoning, and automated visual deductions.
-          <br />
-          <br />
-          <strong>Architecture &amp; Stack:</strong> Python, OCR, Next.js,
-          FastAPI, PyTorch.
-        </p>
-      );
-    },
-  },
-  {
-    description: "Computer Vision",
-    title: "Manga Translator",
-    src: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=800&auto=format&fit=crop",
-    ctaText: "Visit",
-    ctaLink: "https://manga-translator.vercel.app",
-    content: () => {
-      return (
-        <p>
-          Instant in-image speech bubble detection, OCR, neural machine
-          translation, and inpainting background restoration on Fabric.js canvas.
-          <br />
-          <br />
-          <strong>Problem Solved:</strong> Solves multi-day translation
-          bottlenecks for international scanlation communities with instant
-          speech bubble OCR and inpainting.
-          <br />
-          <br />
-          <strong>Architecture &amp; Stack:</strong> PyTorch, FastAPI, Fabric.js,
-          OpenCV, Inpainting.
-        </p>
-      );
-    },
-  },
-  {
-    description: "Full-Stack Web",
-    title: "Roomie",
-    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop",
-    ctaText: "Visit",
-    ctaLink: "https://roomie-ai.vercel.app",
-    content: () => {
-      return (
-        <p>
-          Smart roommate matchmaking platform with vector habit matching and
-          graph-based pairwise debt settlement algorithms.
-          <br />
-          <br />
-          <strong>Problem Solved:</strong> Solves off-campus roommate
-          incompatibility and bill friction using vector habit matchmaking and
-          automated split settlement.
-          <br />
-          <br />
-          <strong>Architecture &amp; Stack:</strong> React, Node.js, MongoDB,
-          Express, Graph Algorithms.
-        </p>
-      );
-    },
-  },
-  {
-    description: "Edge AI Vision",
-    title: "IRIS ai",
-    src: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=800&auto=format&fit=crop",
-    ctaText: "Visit",
-    ctaLink: "https://iris-ai-vision.vercel.app",
-    content: () => {
-      return (
-        <p>
-          Autonomous computer vision pipeline with sub-50ms real-time CCTV video
-          anomaly detection and alert dispatching.
-          <br />
-          <br />
-          <strong>Problem Solved:</strong> Solves critical transit and rail
-          safety latency with automated edge CCTV anomaly detection and
-          autonomous operator alerts.
-          <br />
-          <br />
-          <strong>Architecture &amp; Stack:</strong> TensorFlow, WebRTC,
-          FastAPI, Python, Edge AI.
-        </p>
-      );
-    },
-  },
-  {
-    description: "Productivity OS",
-    title: "Studio OS",
-    src: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop",
-    ctaText: "Visit",
-    ctaLink: "https://studio-os.vercel.app",
-    content: () => {
-      return (
-        <p>
-          Minimalist graphic workspace with multi-layer canvas composition,
-          Redis state synchronization, and high-throughput asset rendering.
-          <br />
-          <br />
-          <strong>Problem Solved:</strong> Solves fragmented client feedback and
-          delivery chaos for boutique creative engineering agencies.
-          <br />
-          <br />
-          <strong>Architecture &amp; Stack:</strong> TypeScript, Fabric.js,
-          Redis, Next.js, Tailwind CSS.
-        </p>
-      );
-    },
-  },
-];
