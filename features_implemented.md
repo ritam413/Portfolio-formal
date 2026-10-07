@@ -56,7 +56,22 @@
   - Ready for dropping in Cloudinary CDN image URLs (`https://res.cloudinary.com/...`).
   - Synced with [ExpandableCardGrid.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/ExpandableCardGrid.tsx) and [portfolio.ts](file:///d:/Games/Hckthons/Portfolio/src/data/portfolio.ts).
 
-### 9. Interactive Multi-Step Persona Contact Modal & Resend API Dispatch (`ContactModal.tsx` & `/api/contact`)
+### 9. Centralized Social & Profile Links Configuration (`links.ts` / `links.js`)
+- **Status**: Implemented
+- **Details**:
+  - Created centralized links configuration files: [links.ts](file:///d:/Games/Hckthons/Portfolio/src/data/links.ts) in `src/data/` and [links.js](file:///d:/Games/Hckthons/Portfolio/links.js) in the root directory (matching the exact location and convention of `assets.ts` and `assets.js`).
+  - Centralizes all social handles, emails, URLs, navigation anchors, and music links:
+    - Email (`mailto:ritam.contact@gmail.com`)
+    - GitHub (`https://github.com/ritam-dev`)
+    - LinkedIn (`https://linkedin.com/in/ritam-dev`)
+    - Twitter / X (`https://x.com/ritam_dev`)
+    - Telegram (`https://t.me/ritam_dev`)
+    - Music track & video URL (`Starboy` by `The Weeknd`)
+    - Header navigation links (`about`, `skills`, `projects`)
+  - Updated [ResumePage.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/ResumePage.tsx) to dynamically render the 5 social contact icons from this single source of truth with responsive hover effects.
+  - Synced with [portfolio.ts](file:///d:/Games/Hckthons/Portfolio/src/data/portfolio.ts).
+
+### 10. Interactive Multi-Step Persona Contact Modal & Resend API Dispatch (`ContactModal.tsx` & `/api/contact`)
 - **Status**: Implemented
 - **Details**:
   - **Frictionless Segmented Flows**: Features 3 tailored inquiry tracks:

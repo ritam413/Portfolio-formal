@@ -158,49 +158,41 @@ export const ResumePage: React.FC = () => {
             {/* Contact & Social Links */}
             <div>
               <div className="flex items-center justify-between gap-1 p-1 rounded-md bg-white border border-[#cfc6c7] shadow-typewolf-subtle">
-                <a
-                  href={profile.email ? `mailto:${profile.email}` : "#"}
-                  title="Send Email"
-                  className="flex items-center justify-center w-9 h-9 rounded-md text-[#654a4e] hover:text-[#443235] hover:bg-[#f8f5f5] transition-all"
-                >
-                  <Mail className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="GitHub Profile"
-                  className="flex items-center justify-center w-9 h-9 rounded-md text-[#654a4e] hover:text-[#443235] hover:bg-[#f8f5f5] transition-all"
-                >
-                  <Github className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="LinkedIn Profile"
-                  className="flex items-center justify-center w-9 h-9 rounded-md text-[#654a4e] hover:text-[#443235] hover:bg-[#f8f5f5] transition-all"
-                >
-                  <Linkedin className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://x.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Twitter / X"
-                  className="flex items-center justify-center w-9 h-9 rounded-md text-[#654a4e] hover:text-[#443235] hover:bg-[#f8f5f5] transition-all"
-                >
-                  <Twitter className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://t.me"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Telegram"
-                  className="flex items-center justify-center w-9 h-9 rounded-md text-[#654a4e] hover:text-[#443235] hover:bg-[#f8f5f5] transition-all"
-                >
-                  <Send className="w-4 h-4" />
-                </a>
+                {portfolioData.socials.map((social) => {
+                  const isEmail = social.url.startsWith("mailto:");
+                  const renderIcon = () => {
+                    switch (social.icon.toLowerCase()) {
+                      case "mail":
+                      case "email":
+                        return <Mail className="w-4 h-4" />;
+                      case "github":
+                        return <Github className="w-4 h-4" />;
+                      case "linkedin":
+                        return <Linkedin className="w-4 h-4" />;
+                      case "twitter":
+                      case "x":
+                        return <Twitter className="w-4 h-4" />;
+                      case "telegram":
+                      case "send":
+                        return <Send className="w-4 h-4" />;
+                      default:
+                        return <Send className="w-4 h-4" />;
+                    }
+                  };
+
+                  return (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target={isEmail ? undefined : "_blank"}
+                      rel={isEmail ? undefined : "noopener noreferrer"}
+                      title={social.name}
+                      className="flex items-center justify-center w-9 h-9 rounded-md text-[#654a4e] hover:text-[#443235] hover:bg-[#f8f5f5] transition-all cursor-pointer"
+                    >
+                      {renderIcon()}
+                    </a>
+                  );
+                })}
               </div>
             </div>
 

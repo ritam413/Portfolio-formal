@@ -21,5 +21,6 @@ Clean, minimalist, high-craft one-page personal resume and portfolio site inspir
 - `src/app/api/contact/route.ts`: Serverless API route using Resend SDK to generate structured, branded HTML email briefs directly to `ritam413@gmail.com` with `replyTo` preservation and simulation fallback.
 - `src/data/portfolio.ts`: Single source of truth for Ritam's portfolio and resume data.
 - `src/data/assets.ts` & `assets.js`: Centralized project showcase & media configuration.
+- `src/data/links.ts` & `links.js`: Centralized social links, contact addresses, navigation anchors, and media links.
 - `public/assets/`: Media assets including avatar image and vinyl disk asset.
 - `public/contact-modal-prototype.html`: Standalone interactive HTML/JS prototype of the contact modal.

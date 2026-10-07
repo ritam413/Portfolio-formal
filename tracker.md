@@ -514,4 +514,38 @@ Production-ready interactive multi-step contact modal fully integrated with Type
 1. To enable live Resend email sending, add `RESEND_API_KEY=re_...` to `.env.local`.
 2. Inspect [src/components/ContactModal.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/ContactModal.tsx) to adjust questions, chip options, or step timings.
 
+## 2026-10-07 — Centralized Links Configuration (`links.js` & `links.ts`)
+
+### Objective
+Provide a single source of truth for all social links, contact handles, email addresses, and navigation links (Email, GitHub, LinkedIn, Twitter/X, Telegram) matching the structure and conventions of `assets.js` and `assets.ts`.
+
+### Changes Made
+1. **Created Root `links.js`**: Created [links.js](file:///d:/Games/Hckthons/Portfolio/links.js) alongside `assets.js` in the project root containing `socialLinks`, `socialsList`, `navigationLinks`, and `musicLink`.
+2. **Created Data Module `src/data/links.ts` and `src/data/links.js`**: Created typed configuration files [src/data/links.ts](file:///d:/Games/Hckthons/Portfolio/src/data/links.ts) and [src/data/links.js](file:///d:/Games/Hckthons/Portfolio/src/data/links.js) exporting `SocialLink`, `NavigationLink`, and `MusicLink` interfaces.
+3. **Refactored `portfolio.ts`**: Connected [src/data/portfolio.ts](file:///d:/Games/Hckthons/Portfolio/src/data/portfolio.ts) to import `socialsList`, `socialLinks`, `navigationLinks`, and `musicLink` from `./links`.
+4. **Refactored `ResumePage.tsx` Social Icons Bar**: Updated the contact & social links bar in [src/components/ResumePage.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/ResumePage.tsx) to dynamically render icons (Mail, GitHub, LinkedIn, Twitter/X, Telegram) from `portfolioData.socials`.
+5. **Updated Documentation**: Synced [context.md](file:///d:/Games/Hckthons/Portfolio/context.md), [features_implemented.md](file:///d:/Games/Hckthons/Portfolio/features_implemented.md), and [tracker.md](file:///d:/Games/Hckthons/Portfolio/tracker.md).
+
+### Files Changed
+- `links.js` — [CREATED] Root centralized links configuration
+- `src/data/links.ts` — [CREATED] TypeScript typed links configuration in src/data/
+- `src/data/links.js` — [CREATED] JavaScript module export in src/data/
+- `src/data/portfolio.ts` — [MODIFIED] Wired to import from `./links`
+- `src/components/ResumePage.tsx` — [MODIFIED] Dynamic rendering of social links from central definition
+- `context.md` — [MODIFIED] Documentation updated
+- `features_implemented.md` — [MODIFIED] Features documented
+- `tracker.md` — [MODIFIED] Logged handoff
+
+### Verification
+- `npx tsc --noEmit` passed with exit code 0.
+- Verified dynamic mapping and rendering of all 5 social icons.
+
+### Current State
+All social handles, emails, and profile links are centralized in `links.js` (root) and `src/data/links.ts`. Any update to these files immediately updates the entire portfolio.
+
+### Next Agent Instructions
+1. To update or add social links, modify [src/data/links.ts](file:///d:/Games/Hckthons/Portfolio/src/data/links.ts) and [links.js](file:///d:/Games/Hckthons/Portfolio/links.js).
+2. All components consume links from either `src/data/links.ts` or `src/data/portfolio.ts`.
+
+
 

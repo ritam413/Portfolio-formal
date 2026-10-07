@@ -1,4 +1,5 @@
 import { projectCardsList, mediaAssets } from "./assets";
+import { socialsList, socialLinks, navigationLinks, musicLink, SocialLink, NavigationLink } from "./links";
 
 export interface ProjectItem {
   id: string;
@@ -42,16 +43,8 @@ export interface PortfolioData {
       url: string;
     };
   };
-  navigation: Array<{
-    id: string;
-    label: string;
-  }>;
-  socials: Array<{
-    name: string;
-    label: string;
-    url: string;
-    icon: string;
-  }>;
+  navigation: NavigationLink[];
+  socials: SocialLink[];
   skills: {
     languages: string[];
     frameworks: string[];
@@ -100,7 +93,7 @@ export const portfolioData: PortfolioData = {
     tagline: "Building high-performance AI systems, vision pipelines, and web apps.",
     bioIntro: "Yo! I'm Ritam. Full-stack engineer & AI builder crafting fast, visual, and intelligent web software.",
     avatar: mediaAssets.avatar,
-    email: "ritam.contact@gmail.com",
+    email: socialLinks.email.label || "ritam.contact@gmail.com",
     university: "Techno India University",
     degree: "B.Tech in Computer Science & Engineering",
     cgpa: "8.2 CGPA",
@@ -114,49 +107,10 @@ export const portfolioData: PortfolioData = {
       "Specialized in Edge AI Vision, OCR document pipelines, and high-performance interactive UX.",
       "Active open-source builder and hackathon competitor based in Kolkata, IN.",
     ],
-    music: {
-      title: "Starboy",
-      artist: "The Weeknd",
-      url: "https://www.youtube.com/watch?v=34Na4j8AVgA",
-    },
+    music: musicLink,
   },
-  navigation: [
-    { id: "about", label: "ABOUT" },
-    { id: "skills", label: "SKILLS" },
-    { id: "projects", label: "PROJECTS" },
-  ],
-  socials: [
-    {
-      name: "Email",
-      label: "ritam.contact@gmail.com",
-      url: "mailto:ritam.contact@gmail.com",
-      icon: "mail",
-    },
-    {
-      name: "GitHub",
-      label: "github.com/ritam-dev",
-      url: "https://github.com",
-      icon: "github",
-    },
-    {
-      name: "LinkedIn",
-      label: "linkedin.com/in/ritam-dev",
-      url: "https://linkedin.com",
-      icon: "linkedin",
-    },
-    {
-      name: "Twitter / X",
-      label: "@ritam_dev",
-      url: "https://x.com",
-      icon: "twitter",
-    },
-    {
-      name: "Telegram",
-      label: "t.me/ritam_dev",
-      url: "https://t.me",
-      icon: "telegram",
-    },
-  ],
+  navigation: navigationLinks,
+  socials: socialsList,
   skills: {
     languages: ["Python", "TypeScript", "JavaScript (ES6+)", "C/C++", "SQL"],
     frameworks: ["Next.js", "React 19", "FastAPI", "Node.js", "Tailwind CSS", "Zustand"],
@@ -182,16 +136,13 @@ export const portfolioData: PortfolioData = {
   bottomCards: {
     contact: {
       title: "CONTACT ME",
-      email: "ritam.contact@gmail.com",
+      email: socialLinks.email.label || "ritam.contact@gmail.com",
       color: "#545454",
       textColor: "#CDFFF1",
       art: mediaAssets.contactArt || "/assets/contact-art.png",
-      socials: [
-        { name: "GitHub", url: "https://github.com" },
-        { name: "LinkedIn", url: "https://linkedin.com" },
-        { name: "Twitter / X", url: "https://twitter.com" },
-        { name: "Telegram", url: "https://t.me" },
-      ],
+      socials: socialsList
+        .filter((s) => s.id !== "email")
+        .map((s) => ({ name: s.name, url: s.url })),
     },
     resume: {
       title: "RESUME",
