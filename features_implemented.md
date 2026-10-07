@@ -55,3 +55,18 @@
   - All project thumbnails (`taxExplainer`, `mangaTranslator`, `roomie`, `irisAi`, `studioOs`), live URLs, summaries, problem-solved statements, and architecture stacks are defined in a single source of truth.
   - Ready for dropping in Cloudinary CDN image URLs (`https://res.cloudinary.com/...`).
   - Synced with [ExpandableCardGrid.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/ExpandableCardGrid.tsx) and [portfolio.ts](file:///d:/Games/Hckthons/Portfolio/src/data/portfolio.ts).
+
+### 9. Interactive Multi-Step Persona Contact Modal & Resend API Dispatch (`ContactModal.tsx` & `/api/contact`)
+- **Status**: Implemented
+- **Details**:
+  - **Frictionless Segmented Flows**: Features 3 tailored inquiry tracks:
+    - **Recruiter**: Step 1 (Company & Role Title + Engagement chips) $\to$ Step 2 (Job ID / URL & Description) $\to$ Step 3 (Work Email) $\to$ Step 4 (Compiled Summary & Dual Dispatch).
+    - **Freelancing**: Step 1 (Project Type & Scope) $\to$ Step 2 (Timeframe & Budget chips) $\to$ Step 3 (Client Email) $\to$ Step 4 (Compiled Summary & Dual Dispatch).
+    - **Collaborator**: Step 1 (Name & Project Repo) $\to$ Step 2 (Structure: Paid/Unpaid & Stack needed) $\to$ Step 3 (Contact Handle & Vision pitch) $\to$ Step 4 (Compiled Summary & Dual Dispatch).
+  - **21st.dev Card-26 LinkCard Design**: Step 0 renders rich visual cards with gradient media headers, hover zoom badges, and 2-line descriptions.
+  - **Spring Physics & Micro-Interactions**: Powered by `motion/react` spring physics, linear top progress bar, auto-focus single-field inputs, 1-click selectable chips, <kbd>Enter</kbd> step advance, and <kbd>Esc</kbd> / outside-click dismissal.
+  - **Dual Dispatch Mechanism**:
+    - Primary action: Direct in-app email sending via Next.js serverless route (`/api/contact`) powered by `resend` SDK with fallback simulation.
+    - Secondary actions: 1-Click structured Markdown brief copy to clipboard and standard `mailto:` fallback link.
+  - **Triggers**: Clickable "Get in Touch" button in sticky Header and clickable GSAP Typewriter availability badge in Hero.
+

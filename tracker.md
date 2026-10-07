@@ -462,3 +462,56 @@ Hero badge dynamically typewrites and cycles between "AVAILABLE FOR INTERNSHIP",
 ### Next Agent Instructions
 1. When customizing the words or typing speeds, pass `words` and `prefix` props directly into `<TypewriterBadge />` in `ResumePage.tsx`.
 
+## 2026-10-07 — Interactive Multi-Step Persona Contact Modal & Resend API Integration
+
+### Objective
+Build a frictionless, multi-step interactive contact modal positioned at the top of the portfolio (triggered via Header "Get in Touch" and Hero typewriter badge) providing three segmented tracks (**Recruiter**, **Freelance**, and **Collaborator**), 21st.dev `Card-26` LinkCard visual cards, step-by-step single-question inputs with quick-select chips, and dual dispatch (direct email dispatch via Resend API + 1-Click Clipboard Markdown copy + Mailto fallback).
+
+### Changes Made
+1. **Created Backend Route (`src/app/api/contact/route.ts`)**:
+   - Integrated `resend` SDK for dispatching structured, styled HTML email inquiries directly to `ritam413@gmail.com`.
+   - Preserves `replyTo` header pointing to the sender's provided email.
+   - Built-in simulation fallback if `RESEND_API_KEY` is not present in `.env` (prevents runtime crashes in local dev).
+2. **Built Interactive Contact Modal (`src/components/ContactModal.tsx`)**:
+   - Implemented `motion/react` spring modal physics with top linear progress indicator.
+   - Step 0: 3 rich persona cards (`Recruiter`, `Freelance Project`, `Collaboration`) built with 21st.dev `Card-26` visual link card patterns (subtle media gradients, hover zoom badges, 2-line summaries).
+   - Recruiter Flow: Step 1 (Company, Role Title + fulltime/intern/contract chips) $\to$ Step 2 (Job URL/ID & Description) $\to$ Step 3 (Work Email) $\to$ Step 4 (Compiled Summary + Dual Action).
+   - Freelance Flow: Step 1 (Project Type + Scope) $\to$ Step 2 (Timeframe & Budget chips) $\to$ Step 3 (Client Email) $\to$ Step 4 (Compiled Summary + Dual Action).
+   - Collaborator Flow: Step 1 (Name & Project Repo) $\to$ Step 2 (Paid/Unpaid & Stack chips) $\to$ Step 3 (Contact & Pitch) $\to$ Step 4 (Compiled Summary + Dual Action).
+   - Dynamic top progress bar (`(currentStep / totalSteps) * 100%`).
+   - Quick-select pill chips for instant 1-click selection.
+   - Keyboard navigation (<kbd>Enter</kbd> to advance, <kbd>Esc</kbd> to close), backdrop blur, and body scroll lock.
+   - Dual Dispatch: Direct in-app send button with loading state and success feedback, 1-Click "Copy Brief" button with floating toast notification, and "Open in Mail App" fallback.
+3. **Integrated Triggers**:
+   - [Header.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/Header.tsx): Added styled "Get in Touch" CTA button.
+   - [TypewriterBadge.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/TypewriterBadge.tsx): Added `onClick` trigger to launch modal directly when user clicks the availability badge in the hero.
+   - [ResumePage.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/ResumePage.tsx): Mounted `<ContactModal />` with state management.
+4. **Standalone Prototypes**:
+   - Created `public/contact-modal-prototype.html` and `contact-modal-prototype.html` for direct browser inspection.
+5. **Fixed Next.js 15 Build Compatibility**:
+   - Removed orphaned `src/app/not-found.tsx` preventing Next.js 15 build invariant errors.
+
+### Files Changed
+- `src/app/api/contact/route.ts` — [CREATED] Resend email dispatch route
+- `src/components/ContactModal.tsx` — [CREATED] Multi-step persona contact modal
+- `src/components/Header.tsx` — [MODIFIED] Added Get in Touch CTA
+- `src/components/TypewriterBadge.tsx` — [MODIFIED] Added click handler
+- `src/components/ResumePage.tsx` — [MODIFIED] Mounted ContactModal
+- `public/contact-modal-prototype.html` — [CREATED] Standalone prototype
+- `context.md` — [MODIFIED] Architecture updated
+- `features_implemented.md` — [MODIFIED] Features documented
+- `tracker.md` — [MODIFIED] Logged handoff
+
+### Verification
+- `npx tsc --noEmit`: Exited with code 0 (0 type errors).
+- `npm run build`: Exited with code 0 (all static routes and `/api/contact` compiled cleanly).
+- Background dev server active on `http://localhost:3000`.
+
+### Current State
+Production-ready interactive multi-step contact modal fully integrated with Typewolf design system, 21st.dev Card-26 persona picker, micro-step question progression, Resend email sending, clipboard markdown copying, and full keyboard accessibility.
+
+### Next Agent Instructions
+1. To enable live Resend email sending, add `RESEND_API_KEY=re_...` to `.env.local`.
+2. Inspect [src/components/ContactModal.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/ContactModal.tsx) to adjust questions, chip options, or step timings.
+
+

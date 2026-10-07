@@ -13,12 +13,14 @@ interface TypewriterBadgeProps {
   prefix?: string;
   words?: string[];
   className?: string;
+  onClick?: () => void;
 }
 
 export const TypewriterBadge: React.FC<TypewriterBadgeProps> = ({
   prefix = "Available for",
   words = ["internship", "collaborator", "freelancing"],
   className = "",
+  onClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
@@ -69,7 +71,12 @@ export const TypewriterBadge: React.FC<TypewriterBadgeProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-[#916a70]/10 border border-[#916a70]/25 text-[#916a70] font-dia text-[11px] font-black uppercase tracking-wider ${className}`}
+      onClick={onClick}
+      className={`inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-[#916a70]/10 border border-[#916a70]/25 text-[#916a70] font-dia text-[11px] font-black uppercase tracking-wider ${
+        onClick
+          ? "cursor-pointer hover:bg-[#916a70]/20 hover:border-[#916a70]/40 active:scale-95 transition-all shadow-typewolf-subtle"
+          : ""
+      } ${className}`}
     >
       <span className="relative flex h-2 w-2 items-center justify-center">
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#916a70] opacity-75"></span>

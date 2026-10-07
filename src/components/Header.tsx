@@ -2,10 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Sun, Printer, Check, Copy } from "lucide-react";
+import { Sun, Printer, Check, Copy, Send } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  onOpenContact?: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ onOpenContact }) => {
   const [copied, setCopied] = useState(false);
   const [time, setTime] = useState("");
 
@@ -39,7 +43,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#cfc6c7]/60 bg-[#f8f5f5]/90 backdrop-blur-md transition-all print:hidden">
+    <header className="sticky top-0 z-40 w-full border-b border-[#cfc6c7]/60 bg-[#f8f5f5]/90 backdrop-blur-md transition-all print:hidden">
       <div className="mx-auto w-full max-w-[960px] px-4 sm:px-6">
         <div className="flex h-[54px] items-center justify-between">
           <Link
@@ -49,8 +53,8 @@ export const Header: React.FC = () => {
             {portfolioData.profile.name}
           </Link>
 
-          <div className="flex items-center gap-4 sm:gap-6">
-            <nav className="hidden sm:flex items-center gap-5 font-dia text-xs font-black uppercase tracking-wider text-[#654a4e]">
+          <div className="flex items-center gap-3 sm:gap-6">
+            <nav className="hidden md:flex items-center gap-5 font-dia text-xs font-black uppercase tracking-wider text-[#654a4e]">
               <a href="#about" className="hover:text-[#443235] transition-colors">
                 about
               </a>
@@ -62,10 +66,10 @@ export const Header: React.FC = () => {
               </a>
             </nav>
 
-            <span className="hidden sm:block text-[#cfc6c7]">|</span>
+            <span className="hidden md:block text-[#cfc6c7]">|</span>
 
             {/* Location & Time */}
-            <div className="flex items-center gap-2 text-xs text-[#654a4e]">
+            <div className="hidden sm:flex items-center gap-2 text-xs text-[#654a4e]">
               <span className="font-dia font-extrabold uppercase tracking-tight text-[#443235]">
                 {portfolioData.profile.location}
               </span>
@@ -75,10 +79,21 @@ export const Header: React.FC = () => {
 
             {/* Action Buttons */}
             <div className="flex items-center gap-2 font-dia">
+              {onOpenContact && (
+                <button
+                  onClick={onOpenContact}
+                  title="Open Interactive Contact Modal"
+                  className="flex items-center gap-1.5 px-3 py-1 text-xs font-extrabold tracking-tight text-white bg-[#443235] hover:bg-[#2e2c2c] border border-[#443235] rounded-md transition-all shadow-typewolf-subtle cursor-pointer active:scale-95"
+                >
+                  <Send className="h-3 w-3" />
+                  <span>Get in Touch</span>
+                </button>
+              )}
+
               <button
                 onClick={handleCopyEmail}
                 title="Copy Email Address"
-                className="flex items-center gap-1.5 px-3 py-1 text-xs font-extrabold tracking-tight text-[#443235] bg-white hover:bg-[#f8f5f5] border border-[#cfc6c7] rounded-md transition-all shadow-typewolf-subtle cursor-pointer"
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 text-xs font-extrabold tracking-tight text-[#443235] bg-white hover:bg-[#f8f5f5] border border-[#cfc6c7] rounded-md transition-all shadow-typewolf-subtle cursor-pointer active:scale-95"
               >
                 {copied ? (
                   <>
@@ -96,10 +111,10 @@ export const Header: React.FC = () => {
               <button
                 onClick={handlePrint}
                 title="Print or Save PDF Resume"
-                className="flex items-center gap-1.5 px-3 py-1 text-xs font-extrabold tracking-tight text-white bg-[#443235] hover:bg-[#2e2c2c] rounded-md transition-all shadow-typewolf-subtle cursor-pointer"
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1 text-xs font-extrabold tracking-tight text-[#443235] bg-white hover:bg-[#f8f5f5] border border-[#cfc6c7] rounded-md transition-all shadow-typewolf-subtle cursor-pointer active:scale-95"
               >
                 <Printer className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">Print / PDF</span>
+                <span>PDF</span>
               </button>
             </div>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   Mail,
@@ -19,13 +19,21 @@ import { Header } from "./Header";
 import { TechIcon } from "./TechIcons";
 import { ExpandableCardDemo } from "./ExpandableCardGrid";
 import { TypewriterBadge } from "./TypewriterBadge";
+import { ContactModal, PersonaType } from "./ContactModal";
 
 export const ResumePage: React.FC = () => {
   const { profile, skills, projects } = portfolioData;
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [activePersona, setActivePersona] = useState<PersonaType>(null);
+
+  const handleOpenContact = (persona: PersonaType = null) => {
+    setActivePersona(persona);
+    setIsContactOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-[#f8f5f5] text-[#443235] selection:bg-[#916a70] selection:text-white">
-      <Header />
+      <Header onOpenContact={() => handleOpenContact(null)} />
 
       <main className="mx-auto w-full max-w-[960px] px-4 sm:px-6 pt-4 sm:pt-6 pb-12 sm:pb-16 space-y-8 sm:space-y-10">
         {/* TWO-COLUMN TOP SECTION (70% Bio/Summary/Projects, 30% Avatar/Contacts/Skills) */}
@@ -37,6 +45,7 @@ export const ResumePage: React.FC = () => {
               <TypewriterBadge
                 prefix="Available for"
                 words={["internship", "collaborator", "freelancing"]}
+                onClick={() => handleOpenContact(null)}
               />
               <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#443235]">
                 {profile.name}
@@ -326,6 +335,13 @@ export const ResumePage: React.FC = () => {
           <p>Typeset in Domaine & Dia aesthetic.</p>
         </footer>
       </main>
+
+      {/* INTERACTIVE MULTI-STEP CONTACT MODAL */}
+      <ContactModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+        initialPersona={activePersona}
+      />
     </div>
   );
 };

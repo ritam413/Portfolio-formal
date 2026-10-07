@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Multi-Step Contact Modal — Card-26 LinkCard Visuals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8f5f5;
+      --surface: #ffffff;
+      --border: #cfc6c7;
+      --border-subtle: rgba(207, 198, 199, 0.45);
+      --ink: #443235;
+      --ink-muted: #654a4e;
+      --dusty-rose: #916a70;
+      --dusty-rose-light: rgba(145, 106, 112, 0.12);
+      --charcoal: #2e2c2c;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+      --font-serif: "Newsreader", Georgia, serif;
+      --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* HARNESS HERO PREVIEW BACKGROUND */
+    .harness-bg {
+      min-height: 100vh;
+      padding: 40px 24px 120px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .harness-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 32px;
+    }
+
+    .harness-brand {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .demo-cta-btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: transform 160ms var(--ease-out), background 160ms ease;
+    }
+    .demo-cta-btn:hover { background: #fdfbfb; border-color: var(--ink-muted); }
+    .demo-cta-btn:active { transform: scale(0.97); }
+    .demo-cta-btn.primary {
+      background: var(--ink);
+      color: #ffffff;
+      border-color: var(--ink);
+    }
+    .demo-cta-btn.primary:hover { background: var(--charcoal); }
+
+    .mock-hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 2px 8px rgba(68, 50, 53, 0.04);
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .mock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      background: var(--dusty-rose-light);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink);
+      cursor: pointer;
+      transition: transform 160ms var(--ease-out);
+    }
+    .mock-badge:hover { transform: translateY(-1px); }
+    .mock-badge:active { transform: scale(0.97); }
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    /* TOAST */
+    .toast-pill {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translate(-50%, -20px) scale(0.95);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--charcoal);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      z-index: 99999;
+      transition: transform 220ms var(--ease-out), opacity 220ms var(--ease-out);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast-pill.visible {
+      transform: translate(-50%, 0) scale(1);
+      opacity: 1;
+    }
+
+    /* MODAL BASE */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(46, 44, 44, 0.48);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 220ms var(--ease-out), visibility 220ms var(--ease-out);
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* STEPPER DIALOG DESIGN */
+    .stepper-dialog {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 620px;
+      box-shadow: 0 24px 50px -12px rgba(68, 50, 53, 0.22), 0 1px 3px rgba(0,0,0,0.05);
+      transform: scale(0.95) translateY(8px);
+      opacity: 0;
+      transition: transform 240ms var(--ease-out), opacity 240ms var(--ease-out);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-overlay.open .stepper-dialog {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    /* TOP PROGRESS BAR & HEADER */
+    .step-header {
+      padding: 16px 24px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: #faf7f7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+    .progress-bar-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #eee6e6;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--dusty-rose);
+      transition: width 260ms var(--ease-out);
+    }
+
+    .step-back-btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 140ms ease;
+    }
+    .step-back-btn:hover { background: #f4efef; color: var(--ink); }
+    .step-back-btn:active { transform: scale(0.96); }
+
+    .step-counter {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .close-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: transform 140ms var(--ease-out), background 140ms ease;
+    }
+    .close-btn:hover { background: #f0eaea; color: var(--ink); }
+    .close-btn:active { transform: scale(0.95); }
+
+    /* CONTENT BODY */
+    .step-body {
+      padding: 24px;
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .step-question {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+    .step-hint {
+      font-size: 13px;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+    }
+
+    /* ==========================================================================
+       21ST.DEV CARD-26 LINKCARD STYLE PERSONA CARDS (STEP 0)
+       ========================================================================== */
+    .card-26-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 600px) {
+      .card-26-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+    }
+
+    .link-card-26 {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      transition: transform 180ms var(--ease-out), border-color 180ms ease, box-shadow 180ms ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .link-card-26:hover {
+      transform: translateY(-3px);
+      border-color: var(--ink);
+      box-shadow: 0 8px 20px rgba(68, 50, 53, 0.12);
+    }
+    .link-card-26:active {
+      transform: scale(0.98);
+    }
+
+    .link-card-media {
+      width: 100%;
+      height: 90px;
+      background: #f4efef;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .link-card-26:hover .link-card-media img,
+    .link-card-26:hover .link-card-media svg {
+      transform: scale(1.08);
+    }
+    .link-card-media svg, .link-card-media img {
+      transition: transform 300ms var(--ease-out);
+    }
+
+    .link-card-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--ink);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      transition: transform 160ms ease, background 160ms ease;
+    }
+    .link-card-26:hover .link-card-badge {
+      background: var(--ink);
+      color: #ffffff;
+      transform: translateX(2px);
+    }
+
+    .link-card-content {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+    .link-card-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .link-card-desc {
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
+    /* FORM ELEMENTS IN STEPS */
+    .form-input, .form-textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      padding: 11px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--ink);
+      font-family: inherit;
+      outline: none;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(68, 50, 53, 0.08);
+    }
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .chips-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .chip {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: all 140ms var(--ease-out);
+      user-select: none;
+    }
+    .chip:hover {
+      background: #fdfbfb;
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+    .chip.selected {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #ffffff;
+    }
+    .chip:active { transform: scale(0.96); }
+
+    /* SUMMARY REVIEW BOX */
+    .summary-card {
+      background: #faf7f7;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--ink);
+      white-space: pre-wrap;
+      max-height: 170px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+    }
+
+    /* STEP FOOTER */
+    .step-footer {
+      padding: 14px 24px;
+      background: #faf7f7;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .next-btn {
+      padding: 11px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 140ms var(--ease-out), background 140ms ease;
+      border: 1px solid transparent;
+      background: var(--ink);
+      color: #ffffff;
+      width: 100%;
+    }
+    .next-btn:hover { background: var(--charcoal); }
+    .next-btn:active { transform: scale(0.97); }
+
+    .dual-dispatch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+    .dispatch-btn {
+      padding: 11px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 140ms var(--ease-out), background 140ms ease;
+      border: 1px solid transparent;
+    }
+    .dispatch-btn.secondary {
+      background: #ffffff;
+      color: var(--ink);
+      border-color: var(--border);
+    }
+    .dispatch-btn.secondary:hover { background: #f4efef; }
+    .dispatch-btn.primary {
+      background: var(--ink);
+      color: #ffffff;
+    }
+    .dispatch-btn.primary:hover { background: var(--charcoal); }
+    .dispatch-btn:active { transform: scale(0.97); }
+  </style>
+</head>
+<body>
+
+  <div id="stage"></div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast-pill" role="status" aria-live="polite">
+    <span>✓</span> <span id="toast-text">Brief copied to clipboard!</span>
+  </div>
+
+  <script>
+    // GLOBAL WIZARD STATE
+    let wizard = {
+      isOpen: true,
+      step: 0, // 0 = select persona (Card-26 grid), 1 = details, 2 = scope/specs, 3 = email, 4 = review/dispatch
+      persona: null, // "recruiter" | "freelance" | "collab"
+      data: {
+        // Recruiter
+        engagementType: "Full-time",
+        company: "",
+        role: "",
+        jobIdOrUrl: "",
+        jobDesc: "",
+        recruiterEmail: "",
+        
+        // Freelance
+        projectType: "Full-Stack Web App",
+        timeframe: "1 Month",
+        budget: "$1,000 – $3,000",
+        freelanceScope: "",
+        freelanceEmail: "",
+        
+        // Collab
+        collabName: "",
+        collabRepo: "",
+        collabPaid: "Paid / Bounty",
+        collabStack: "AI / ML Pipeline",
+        collabPitch: "",
+        collabEmail: ""
+      }
+    };
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      const toastText = document.getElementById("toast-text");
+      toastText.textContent = msg;
+      toast.classList.add("visible");
+      setTimeout(() => toast.classList.remove("visible"), 2500);
+    }
+
+    function openModal(initialPersona = null) {
+      wizard.isOpen = true;
+      if (initialPersona) {
+        wizard.persona = initialPersona;
+        wizard.step = 1;
+      } else {
+        wizard.persona = null;
+        wizard.step = 0;
+      }
+      mount();
+    }
+
+    function closeModal() {
+      wizard.isOpen = false;
+      mount();
+    }
+
+    function selectPersona(p) {
+      wizard.persona = p;
+      wizard.step = 1;
+      mount();
+    }
+
+    function nextStep() {
+      saveCurrentInputs();
+      if (wizard.step < 4) {
+        wizard.step++;
+        mount();
+      }
+    }
+
+    function prevStep() {
+      saveCurrentInputs();
+      if (wizard.step > 0) {
+        wizard.step--;
+        if (wizard.step === 0) wizard.persona = null;
+        mount();
+      }
+    }
+
+    function saveCurrentInputs() {
+      const p = wizard.persona;
+      if (p === 'recruiter') {
+        const c = document.getElementById('inp-company')?.value;
+        const r = document.getElementById('inp-role')?.value;
+        const l = document.getElementById('inp-joblink')?.value;
+        const d = document.getElementById('inp-jobdesc')?.value;
+        const e = document.getElementById('inp-recemail')?.value;
+        if (c !== undefined) wizard.data.company = c;
+        if (r !== undefined) wizard.data.role = r;
+        if (l !== undefined) wizard.data.jobIdOrUrl = l;
+        if (d !== undefined) wizard.data.jobDesc = d;
+        if (e !== undefined) wizard.data.recruiterEmail = e;
+      } else if (p === 'freelance') {
+        const s = document.getElementById('inp-freescope')?.value;
+        const e = document.getElementById('inp-freeemail')?.value;
+        if (s !== undefined) wizard.data.freelanceScope = s;
+        if (e !== undefined) wizard.data.freelanceEmail = e;
+      } else if (p === 'collab') {
+        const n = document.getElementById('inp-collabname')?.value;
+        const r = document.getElementById('inp-collabrepo')?.value;
+        const pi = document.getElementById('inp-collabpitch')?.value;
+        const e = document.getElementById('inp-collabemail')?.value;
+        if (n !== undefined) wizard.data.collabName = n;
+        if (r !== undefined) wizard.data.collabRepo = r;
+        if (pi !== undefined) wizard.data.collabPitch = pi;
+        if (e !== undefined) wizard.data.collabEmail = e;
+      }
+    }
+
+    function generateCompiledBrief() {
+      const p = wizard.persona;
+      const d = wizard.data;
+      if (p === 'recruiter') {
+        return `[RECRUITMENT OPPORTUNITY]\n• Company: ${d.company || 'Our Team'}\n• Position: ${d.role || 'Software Engineer'} (${d.engagementType})\n• Job Link: ${d.jobIdOrUrl || 'N/A'}\n• Details: ${d.jobDesc || 'Exciting role opening'}\n• Recruiter Contact: ${d.recruiterEmail || 'N/A'}`;
+      } else if (p === 'freelance') {
+        return `[FREELANCE COMMISSION]\n• Deliverable: ${d.projectType}\n• Delivery Timeline: ${d.timeframe}\n• Budget Range: ${d.budget}\n• Scope: ${d.freelanceScope || 'Custom build'}\n• Client Contact: ${d.freelanceEmail || 'N/A'}`;
+      } else {
+        return `[COLLABORATION INVITATION]\n• Collaborator: ${d.collabName || 'Fellow Builder'}\n• Repo: ${d.collabRepo || 'N/A'}\n• Compensation: ${d.collabPaid}\n• Desired Stack: ${d.collabStack}\n• Vision / Pitch: ${d.collabPitch || 'Let\'s build something together'}\n• Contact: ${d.collabEmail || 'N/A'}`;
+      }
+    }
+
+    function copyCompiledBrief() {
+      const text = generateCompiledBrief();
+      navigator.clipboard.writeText(text);
+      showToast("Formatted brief copied to clipboard!");
+    }
+
+    function sendCompiledEmail() {
+      const toEmail = "ritam413@gmail.com";
+      const p = wizard.persona;
+      const d = wizard.data;
+      let subject = "";
+      let body = "";
+
+      if (p === 'recruiter') {
+        subject = `[Recruitment] ${d.role || 'Engineering'} Opportunity at ${d.company || 'Company'} (${d.engagementType})`;
+        body = `Hi Ritam,\n\nI'm reaching out regarding an opportunity at ${d.company || 'our company'}.\n\nRole: ${d.role || 'Software Engineer'} (${d.engagementType})\nJob Spec/URL: ${d.jobIdOrUrl || 'N/A'}\n\nDescription:\n${d.jobDesc || ''}\n\nBest regards,\n${d.recruiterEmail || ''}`;
+      } else if (p === 'freelance') {
+        subject = `[Freelance Project] ${d.projectType} — ${d.budget}`;
+        body = `Hi Ritam,\n\nWe would like to commission a ${d.projectType}.\n• Target Timeline: ${d.timeframe}\n• Estimated Budget: ${d.budget}\n\nScope:\n${d.freelanceScope || ''}\n\nContact: ${d.freelanceEmail || ''}`;
+      } else {
+        subject = `[Collaboration] ${d.collabName || 'Builder'} — ${d.collabPaid}`;
+        body = `Hey Ritam,\n\nI'd love to collaborate on a project (${d.collabPaid}).\n• Repo / Link: ${d.collabRepo || 'N/A'}\n• Stack: ${d.collabStack}\n\nPitch:\n${d.collabPitch || ''}\n\nContact: ${d.collabEmail || ''}`;
+      }
+
+      window.location.href = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    // =========================================================================
+    // STEP CONTENT GENERATORS
+    // =========================================================================
+    function getStepContent() {
+      const { step, persona, data } = wizard;
+
+      // STEP 0: PERSONA SELECTOR (21ST.DEV CARD-26 LINKCARD STYLE)
+      if (step === 0 || !persona) {
+        return `
+          <div class="step-question">How would you like to connect?</div>
+          <div class="step-hint">Select a track below for an interactive, tailored walkthrough.</div>
+          
+          <div class="card-26-grid">
+            <!-- RECRUITER CARD -->
+            <div class="link-card-26" onclick="selectPersona('recruiter')">
+              <div class="link-card-media" style="background: linear-gradient(135deg, #f0e6e7 0%, #e3d2d4 100%);">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#443235" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+                <span class="link-card-badge">↗</span>
+              </div>
+              <div class="link-card-content">
+                <div class="link-card-title">
+                  <span>💼 Recruiter</span>
+                </div>
+                <div class="link-card-desc">Hiring for full-time, internship, or contract engineering roles.</div>
+              </div>
+            </div>
+
+            <!-- FREELANCE CARD -->
+            <div class="link-card-26" onclick="selectPersona('freelance')">
+              <div class="link-card-media" style="background: linear-gradient(135deg, #e8ede7 0%, #d5dfd4 100%);">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#2d4a3e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+                <span class="link-card-badge">↗</span>
+              </div>
+              <div class="link-card-content">
+                <div class="link-card-title">
+                  <span>⚡ Freelance</span>
+                </div>
+                <div class="link-card-desc">Commission custom full-stack web apps, MVPs, or AI pipelines.</div>
+              </div>
+            </div>
+
+            <!-- COLLABORATOR CARD -->
+            <div class="link-card-26" onclick="selectPersona('collab')">
+              <div class="link-card-media" style="background: linear-gradient(135deg, #e6edf5 0%, #d3dfeb 100%);">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#2c3e50" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m18 16 4-4-4-4"/>
+                  <path d="m6 8-4 4 4 4"/>
+                  <path d="m14.5 4-5 16"/>
+                </svg>
+                <span class="link-card-badge">↗</span>
+              </div>
+              <div class="link-card-content">
+                <div class="link-card-title">
+                  <span>🤝 Collaborator</span>
+                </div>
+                <div class="link-card-desc">Team up on hackathons, bounties, and open-source tools.</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // RECRUITER TRACK
+      if (persona === 'recruiter') {
+        if (step === 1) {
+          return `
+            <div class="step-question">Company Name & Role Title</div>
+            <div class="step-hint">What team and position are you reaching out for?</div>
+            <div class="chips-group">
+              ${['Full-time', 'Internship', 'Contract / Part-time'].map(t => `
+                <button type="button" class="chip ${data.engagementType === t ? 'selected' : ''}" onclick="wizard.data.engagementType = '${t}'; mount();">${t}</button>
+              `).join('')}
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <input id="inp-company" class="form-input" placeholder="Company Name (e.g. Stripe, Acme, Stealth AI)" value="${data.company}" autofocus />
+              <input id="inp-role" class="form-input" placeholder="Role Title (e.g. Full-Stack / AI Engineer)" value="${data.role}" />
+            </div>
+          `;
+        }
+        if (step === 2) {
+          return `
+            <div class="step-question">Job ID, Spec & Description</div>
+            <div class="step-hint">Provide the job link or brief role requirements.</div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <input id="inp-joblink" class="form-input" placeholder="Job ID or Spec URL (optional)" value="${data.jobIdOrUrl}" autofocus />
+              <textarea id="inp-jobdesc" class="form-textarea" placeholder="Brief notes on stack, team, or location (Remote / Hybrid)...">${data.jobDesc}</textarea>
+            </div>
+          `;
+        }
+        if (step === 3) {
+          return `
+            <div class="step-question">Your Work Email</div>
+            <div class="step-hint">Where should I send my portfolio & resume follow-up?</div>
+            <input id="inp-recemail" type="email" class="form-input" placeholder="recruiter@company.com" value="${data.recruiterEmail}" autofocus />
+          `;
+        }
+      }
+
+      // FREELANCE TRACK
+      if (persona === 'freelance') {
+        if (step === 1) {
+          return `
+            <div class="step-question">What do you want to build?</div>
+            <div class="step-hint">Select the deliverable type and describe key features.</div>
+            <div class="chips-group">
+              ${['Full-Stack Web App', 'AI / LLM Pipeline', 'MVP / Prototype', 'API / Backend'].map(t => `
+                <button type="button" class="chip ${data.projectType === t ? 'selected' : ''}" onclick="wizard.data.projectType = '${t}'; mount();">${t}</button>
+              `).join('')}
+            </div>
+            <textarea id="inp-freescope" class="form-textarea" placeholder="Brief project summary or desired functionality...">${data.freelanceScope}</textarea>
+          `;
+        }
+        if (step === 2) {
+          return `
+            <div class="step-question">Delivery Timeframe & Budget</div>
+            <div class="step-hint">Help me understand your target deadline and budget range.</div>
+            <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--ink-muted); margin-bottom:6px;">Target Delivery</div>
+            <div class="chips-group">
+              ${['Urgent (< 2 weeks)', '1 Month', '2-3 Months', 'Flexible'].map(t => `
+                <button type="button" class="chip ${data.timeframe === t ? 'selected' : ''}" onclick="wizard.data.timeframe = '${t}'; mount();">${t}</button>
+              `).join('')}
+            </div>
+            <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--ink-muted); margin-bottom:6px;">Budget Range</div>
+            <div class="chips-group">
+              ${['< $1,000', '$1,000 – $3,000', '$3,000 – $5,000', '$5,000+'].map(t => `
+                <button type="button" class="chip ${data.budget === t ? 'selected' : ''}" onclick="wizard.data.budget = '${t}'; mount();">${t}</button>
+              `).join('')}
+            </div>
+          `;
+        }
+        if (step === 3) {
+          return `
+            <div class="step-question">Your Email Address</div>
+            <div class="step-hint">Where should I send the project proposal and timeline estimate?</div>
+            <input id="inp-freeemail" type="email" class="form-input" placeholder="client@company.com" value="${data.freelanceEmail}" autofocus />
+          `;
+        }
+      }
+
+      // COLLABORATOR TRACK
+      if (persona === 'collab') {
+        if (step === 1) {
+          return `
+            <div class="step-question">Your Name & Repo Link</div>
+            <div class="step-hint">Who's building and where is the codebase?</div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <input id="inp-collabname" class="form-input" placeholder="Your Name or Team Handle" value="${data.collabName}" autofocus />
+              <input id="inp-collabrepo" class="form-input" placeholder="GitHub / GitLab Repo or Demo URL" value="${data.collabRepo}" />
+            </div>
+          `;
+        }
+        if (step === 2) {
+          return `
+            <div class="step-question">Paid / Unpaid & Stack Needed</div>
+            <div class="step-hint">What is the compensation structure and technical focus?</div>
+            <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--ink-muted); margin-bottom:6px;">Compensation Model</div>
+            <div class="chips-group">
+              ${['Paid / Bounty', 'Unpaid / Hackathon', 'Rev-Share / Equity'].map(t => `
+                <button type="button" class="chip ${data.collabPaid === t ? 'selected' : ''}" onclick="wizard.data.collabPaid = '${t}'; mount();">${t}</button>
+              `).join('')}
+            </div>
+            <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--ink-muted); margin-bottom:6px;">Skillset Needed</div>
+            <div class="chips-group">
+              ${['AI / ML Pipeline', 'Next.js Frontend', 'FastAPI Backend', 'Architecture'].map(t => `
+                <button type="button" class="chip ${data.collabStack === t ? 'selected' : ''}" onclick="wizard.data.collabStack = '${t}'; mount();">${t}</button>
+              `).join('')}
+            </div>
+          `;
+        }
+        if (step === 3) {
+          return `
+            <div class="step-question">Vision & Contact</div>
+            <div class="step-hint">Tell me why this project is exciting and how to reach you.</div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <input id="inp-collabemail" class="form-input" placeholder="Your Email / Discord / Telegram" value="${data.collabEmail}" autofocus />
+              <textarea id="inp-collabpitch" class="form-textarea" placeholder="What are we building and why is it awesome?">${data.collabPitch}</textarea>
+            </div>
+          `;
+        }
+      }
+
+      // STEP 4: FINAL SUMMARY & DUAL DISPATCH
+      if (step === 4) {
+        return `
+          <div class="step-question">Ready to Dispatch! 🚀</div>
+          <div class="step-hint">Your brief is pre-formatted. Choose how you'd like to send it:</div>
+          <div class="summary-card">${generateCompiledBrief()}</div>
+        `;
+      }
+    }
+
+    function renderStage() {
+      const progressPercent = wizard.step === 0 ? 0 : (wizard.step / 4) * 100;
+
+      return `
+        <div class="harness-bg">
+          <header class="harness-header">
+            <span class="harness-brand">Ritam Banerjee</span>
+            <div class="harness-actions">
+              <button class="demo-cta-btn" onclick="openModal()">
+                <span>Get in Touch</span>
+              </button>
+              <button class="demo-cta-btn primary" onclick="openModal()">
+                <span>Contact Me</span>
+              </button>
+            </div>
+          </header>
+
+          <div class="mock-hero">
+            <div>
+              <div class="mock-badge" onclick="openModal()">
+                <span class="pulse-dot"></span>
+                <span>Card-26 Interactive Modal</span>
+              </div>
+              <h1 style="font-family: var(--font-serif); font-size: 32px; font-weight: 700; margin-top: 12px; color: var(--ink);">
+                Single-Question Micro-Modals
+              </h1>
+              <p style="font-size: 15px; color: var(--ink-muted); margin-top: 6px;">
+                Visual LinkCard selector on step 0, followed by single-question screens and 1-click dispatch.
+              </p>
+            </div>
+            <button class="demo-cta-btn primary" style="padding: 12px 24px; font-size: 14px;" onclick="openModal()">
+              Open Interactive Modal ⚡
+            </button>
+          </div>
+
+          <!-- STEPPER MODAL -->
+          <div id="modalOverlay" class="modal-overlay ${wizard.isOpen ? 'open' : ''}" onclick="if(event.target === this) closeModal()">
+            <div class="stepper-dialog" role="dialog" aria-modal="true">
+              
+              <!-- STEP HEADER -->
+              <div class="step-header">
+                <div class="progress-bar-container">
+                  <div class="progress-bar-fill" style="width: ${progressPercent}%;"></div>
+                </div>
+
+                ${wizard.step > 0 ? `
+                  <button class="step-back-btn" onclick="prevStep()">
+                    <span>←</span> <span>Back</span>
+                  </button>
+                ` : `
+                  <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--ink-muted); letter-spacing: 0.05em;">
+                    Connect With Ritam
+                  </span>
+                `}
+
+                <span class="step-counter">
+                  ${wizard.step === 0 ? 'CHOOSE TRACK' : `STEP ${wizard.step} OF 4`}
+                </span>
+
+                <button class="close-btn" onclick="closeModal()" aria-label="Close modal">×</button>
+              </div>
+
+              <!-- STEP BODY -->
+              <div class="step-body">
+                ${getStepContent()}
+              </div>
+
+              <!-- STEP FOOTER -->
+              ${wizard.step > 0 ? `
+                <div class="step-footer">
+                  ${wizard.step < 4 ? `
+                    <button class="next-btn" onclick="nextStep()">
+                      <span>Continue</span> <span>→</span>
+                    </button>
+                  ` : `
+                    <div class="dual-dispatch">
+                      <button class="dispatch-btn secondary" onclick="copyCompiledBrief()">
+                        <span>📋 Copy Brief</span>
+                      </button>
+                      <button class="dispatch-btn primary" onclick="sendCompiledEmail()">
+                        <span>🚀 Send Email</span>
+                      </button>
+                    </div>
+                  `}
+                </div>
+              ` : ''}
+
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    const stage = document.getElementById('stage');
+    function mount() {
+      stage.innerHTML = '';
+      requestAnimationFrame(() => {
+        stage.innerHTML = renderStage();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        return;
+      }
+      if (e.key === 'Enter' && wizard.isOpen && wizard.step > 0 && wizard.step < 4) {
+        if (e.target.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          nextStep();
+        }
+      }
+    });
+
+    mount();
+  </script>
+</body>
+</html>
