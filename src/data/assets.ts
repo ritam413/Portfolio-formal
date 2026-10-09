@@ -47,7 +47,7 @@ export const projectAssets: Record<string, ProjectAsset> = {
     category: "AI / Fintech",
     imageUrl: "https://res.cloudinary.com/dcfhgjazu/image/upload/v1791389387/fiscalquant_thumbnail_1791388643688_a5apoj.jpg",
     liveUrl: "https://tax-explainer.vercel.app",
-    githubUrl: "https://github.com/ritam-dev/tax-explainer",
+    githubUrl: "https://github.com/ritam413/Tax-Explainer",
     ctaText: "Visit",
     summary:
       "Transforms complex financial documents into an interactive, visual AI-explained dashboard with automated deduction discovery.",
@@ -63,8 +63,8 @@ export const projectAssets: Record<string, ProjectAsset> = {
     title: "Manga Translator",
     category: "Computer Vision",
     imageUrl: "https://res.cloudinary.com/dcfhgjazu/image/upload/v1791390313/Manga_Translator_jdyjpb.jpg",
-    liveUrl: "https://manga-translator.vercel.app",
-    githubUrl: "https://github.com/ritam-dev/manga-translator",
+    liveUrl: "https://mangatranslator.vercel.app",
+    githubUrl: "https://github.com/ritam413/Manga-Translator-AI",
     ctaText: "Visit",
     summary:
       "Instant in-image speech bubble detection, OCR, neural machine translation, and inpainting background restoration on Fabric.js canvas.",
@@ -80,8 +80,8 @@ export const projectAssets: Record<string, ProjectAsset> = {
     title: "Roomie",
     category: "Full-Stack Web",
     imageUrl: "https://res.cloudinary.com/dcfhgjazu/image/upload/v1791391323/Roomie_Ops_uz80mp.png",
-    liveUrl: "https://roomie-ai.vercel.app",
-    githubUrl: "https://github.com/ritam-dev/roomie",
+    liveUrl: "https://all-things-agentic.vercel.app",
+    githubUrl: "https://github.com/ritam413/All-Things-Agentic",
     ctaText: "Visit",
     summary:
       "Smart roommate matchmaking platform with vector habit matching and graph-based pairwise debt settlement algorithms.",
@@ -97,8 +97,8 @@ export const projectAssets: Record<string, ProjectAsset> = {
     title: "IRIS ai",
     category: "Edge AI Vision",
     imageUrl: "https://res.cloudinary.com/dcfhgjazu/image/upload/v1791391313/Railway_Surkash_AI_nqnyor.jpg",
-    liveUrl: "https://iris-ai-vision.vercel.app",
-    githubUrl: "https://github.com/ritam-dev/iris-ai",
+    liveUrl: "https://rail-suraksha-ai.vercel.app/",
+    githubUrl: "https://github.com/ritam413/RailSuraksha-AI-",
     ctaText: "Visit",
     summary:
       "Autonomous computer vision pipeline with sub-50ms real-time CCTV video anomaly detection and alert dispatching.",
@@ -114,8 +114,8 @@ export const projectAssets: Record<string, ProjectAsset> = {
     title: "Studio OS",
     category: "Productivity OS",
     imageUrl: "https://res.cloudinary.com/dcfhgjazu/image/upload/v1791389989/Studio_OS_THumbnail_cfg6o7.jpg",
-    liveUrl: "https://studio-os.vercel.app",
-    githubUrl: "https://github.com/ritam-dev/studio-os",
+    liveUrl: "https://studio-os-lyart-six.vercel.app/",
+    githubUrl: "https://github.com/ritam413/Studio-OS",
     ctaText: "Visit",
     summary:
       "Minimalist graphic workspace with multi-layer canvas composition, Redis state synchronization, and high-throughput asset rendering.",

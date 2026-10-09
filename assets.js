@@ -13,10 +13,9 @@ export const projectAssets = {
     id: "tax-explainer",
     title: "Tax Explainer",
     category: "AI / Fintech",
-    // Replace with your Cloudinary URL: e.g. "https://res.cloudinary.com/<cloud_name>/image/upload/v.../tax-explainer.png"
-    imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop",
+    imageUrl: "https://res.cloudinary.com/dcfhgjazu/image/upload/v1791389387/fiscalquant_thumbnail_1791388643688_a5apoj.jpg",
     liveUrl: "https://tax-explainer.vercel.app",
-    githubUrl: "https://github.com/ritam-dev/tax-explainer",
+    githubUrl: "https://github.com/ritam413/Tax-Explainer",
     ctaText: "Visit",
     summary:
       "Transforms complex financial documents into an interactive, visual AI-explained dashboard with automated deduction discovery.",
@@ -31,10 +30,9 @@ export const projectAssets = {
     id: "manga-translator",
     title: "Manga Translator",
     category: "Computer Vision",
-    // Replace with your Cloudinary URL: e.g. "https://res.cloudinary.com/<cloud_name>/image/upload/v.../manga-translator.png"
-    imageUrl: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=800&auto=format&fit=crop",
-    liveUrl: "https://manga-translator.vercel.app",
-    githubUrl: "https://github.com/ritam-dev/manga-translator",
+    imageUrl: "https://res.cloudinary.com/dcfhgjazu/image/upload/v1791390313/Manga_Translator_jdyjpb.jpg",
+    liveUrl: "https://mangatranslator.vercel.app",
+    githubUrl: "https://github.com/ritam413/Manga-Translator-AI",
     ctaText: "Visit",
     summary:
       "Instant in-image speech bubble detection, OCR, neural machine translation, and inpainting background restoration on Fabric.js canvas.",
@@ -49,10 +47,9 @@ export const projectAssets = {
     id: "roomie",
     title: "Roomie",
     category: "Full-Stack Web",
-    // Replace with your Cloudinary URL: e.g. "https://res.cloudinary.com/<cloud_name>/image/upload/v.../roomie.png"
-    imageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop",
-    liveUrl: "https://roomie-ai.vercel.app",
-    githubUrl: "https://github.com/ritam-dev/roomie",
+    imageUrl: "https://res.cloudinary.com/dcfhgjazu/image/upload/v1791391323/Roomie_Ops_uz80mp.png",
+    liveUrl: "https://all-things-agentic.vercel.app",
+    githubUrl: "https://github.com/ritam413/All-Things-Agentic",
     ctaText: "Visit",
     summary:
       "Smart roommate matchmaking platform with vector habit matching and graph-based pairwise debt settlement algorithms.",
@@ -67,10 +64,9 @@ export const projectAssets = {
     id: "iris-ai",
     title: "IRIS ai",
     category: "Edge AI Vision",
-    // Replace with your Cloudinary URL: e.g. "https://res.cloudinary.com/<cloud_name>/image/upload/v.../iris-ai.png"
-    imageUrl: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=800&auto=format&fit=crop",
-    liveUrl: "https://iris-ai-vision.vercel.app",
-    githubUrl: "https://github.com/ritam-dev/iris-ai",
+    imageUrl: "https://res.cloudinary.com/dcfhgjazu/image/upload/v1791391313/Railway_Surkash_AI_nqnyor.jpg",
+    liveUrl: "https://rail-suraksha-ai.vercel.app/",
+    githubUrl: "https://github.com/ritam413/RailSuraksha-AI-",
     ctaText: "Visit",
     summary:
       "Autonomous computer vision pipeline with sub-50ms real-time CCTV video anomaly detection and alert dispatching.",
@@ -85,10 +81,9 @@ export const projectAssets = {
     id: "studio-os",
     title: "Studio OS",
     category: "Productivity OS",
-    // Replace with your Cloudinary URL: e.g. "https://res.cloudinary.com/<cloud_name>/image/upload/v.../studio-os.png"
-    imageUrl: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop",
-    liveUrl: "https://studio-os.vercel.app",
-    githubUrl: "https://github.com/ritam-dev/studio-os",
+    imageUrl: "https://res.cloudinary.com/dcfhgjazu/image/upload/v1791389989/Studio_OS_THumbnail_cfg6o7.jpg",
+    liveUrl: "https://studio-os-lyart-six.vercel.app/",
+    githubUrl: "https://github.com/ritam413/Studio-OS",
     ctaText: "Visit",
     summary:
       "Minimalist graphic workspace with multi-layer canvas composition, Redis state synchronization, and high-throughput asset rendering.",

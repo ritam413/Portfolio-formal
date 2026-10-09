@@ -547,5 +547,41 @@ All social handles, emails, and profile links are centralized in `links.js` (roo
 1. To update or add social links, modify [src/data/links.ts](file:///d:/Games/Hckthons/Portfolio/src/data/links.ts) and [links.js](file:///d:/Games/Hckthons/Portfolio/links.js).
 2. All components consume links from either `src/data/links.ts` or `src/data/portfolio.ts`.
 
+## 2026-10-09 — Update Project Links, Thumbnails, and Avatar Asset
+
+### Objective
+Update live project URLs, Cloudinary image thumbnails, GitHub repository links, and custom portfolio avatar asset across the entire site.
+
+### Changes Made
+1. **Updated `src/data/assets.ts`**:
+   - Tax Explainer: GitHub URL updated to `https://github.com/ritam413/Tax-Explainer` and Cloudinary image set.
+   - Manga Translator: Live URL set to `https://mangatranslator.vercel.app`, GitHub URL set to `https://github.com/ritam413/Manga-Translator-AI`, and Cloudinary image set.
+   - Roomie: Live URL set to `https://all-things-agentic.vercel.app`, GitHub URL set to `https://github.com/ritam413/All-Things-Agentic`, and Cloudinary image set.
+   - IRIS ai: Live URL set to `https://rail-suraksha-ai.vercel.app/`, GitHub URL set to `https://github.com/ritam413/RailSuraksha-AI-`, and Cloudinary image set.
+   - Studio OS: Live URL set to `https://studio-os-lyart-six.vercel.app/`, GitHub URL set to `https://github.com/ritam413/Studio-OS`, and Cloudinary image set.
+2. **Integrated User Avatar Asset**:
+   - Replaced `public/assets/avatar.png` and `assets/avatar.png` with the user-provided vector avatar portrait.
+   - Updated [src/components/AboutCard.tsx](file:///d:/Games/Hckthons/Portfolio/src/components/AboutCard.tsx) to render `profile.avatar` with Next.js Image component instead of a placeholder SVG.
+3. **Synchronized `assets.js`**: Synced root `assets.js` with matching URLs and Cloudinary asset links.
+4. **Updated Tracker Log**: Updated [tracker.md](file:///d:/Games/Hckthons/Portfolio/tracker.md).
+
+### Files Changed
+- `public/assets/avatar.png` — [MODIFIED] Replaced with user avatar portrait.
+- `assets/avatar.png` — [MODIFIED] Replaced with user avatar portrait.
+- `src/components/AboutCard.tsx` — [MODIFIED] Uses `profile.avatar` Image in About Card.
+- `src/data/assets.ts` — [MODIFIED] Live project links, GitHub repo URLs, and Cloudinary images updated.
+- `assets.js` — [MODIFIED] Synced root asset file with updated URLs.
+- `tracker.md` — [MODIFIED] Handoff log updated.
+
+### Verification
+- `npx tsc --noEmit` — passed with 0 errors.
+
+### Current State
+All project cards and links point to active Vercel deployments and `@ritam413` repositories, and the profile avatar is rendered consistently across the About card and Resume page.
+
+### Next Agent Instructions
+1. When modifying project links, always edit [src/data/assets.ts](file:///d:/Games/Hckthons/Portfolio/src/data/assets.ts) and sync [assets.js](file:///d:/Games/Hckthons/Portfolio/assets.js).
+
+
 
 
